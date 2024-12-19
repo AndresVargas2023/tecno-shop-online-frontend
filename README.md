@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# TecnoShop Online - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este es el frontend de **TecnoShop Online**, una tienda en línea para productos tecnológicos, como smartphones, computadoras y accesorios.
 
-## Available Scripts
+## Descripción del Proyecto
 
-In the project directory, you can run:
+El objetivo de este proyecto es crear una plataforma en línea donde los usuarios puedan explorar y comprar productos tecnológicos. El proyecto está construido utilizando **React** para la interfaz de usuario y es totalmente responsivo para que los usuarios puedan acceder desde diferentes dispositivos.
 
-### `npm start`
+### Características
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Página principal con bienvenida e introducción a la tienda.
+- Categorías de productos: Smartphones, Computadoras, Accesorios.
+- Botones interactivos para explorar las diferentes categorías de productos.
+- Desplegado en **Render** para un acceso en vivo.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologías Usadas
 
-### `npm test`
+- **React**: Para construir la interfaz de usuario.
+- **React Router**: Para la navegación entre diferentes páginas de categorías.
+- **CSS**: Para el diseño y estilo de la página.
+- **GitHub**: Para el control de versiones y el repositorio del proyecto.
+- **Render**: Para el despliegue de la aplicación.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalación y Uso
 
-### `npm run build`
+### Clonar el repositorio
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para empezar a trabajar con este proyecto, primero clónalo en tu máquina local:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/AndresVargas2023/tecno-shop-online-frontend.git
