@@ -1,0 +1,91 @@
+/* Estilo general para la página */
+.homepage {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilos para el encabezado de la página */
+.homepage-header {
+    background-color: #282c34;
+    color: white;
+    padding: 40px 20px;
+}
+
+/* Botón principal "Explorar productos" */
+.homepage-button {
+    background-color: #61dafb;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Efecto hover para el botón principal */
+.homepage-button:hover {
+    background-color: #21a1f1;
+}
+
+/* Sección con las categorías */
+.homepage-section {
+    margin: 40px 20px;
+}
+
+/* Estilo para el contenedor de las categorías */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo para cada tarjeta de categoría */
+.category-card {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del título dentro de la tarjeta */
+.category-card h3 {
+    margin-bottom: 10px;
+}
+
+/* Estilo para la descripción dentro de la tarjeta */
+.category-card p {
+    color: #555;
+}
+
+/* Estilo mejorado para los botones de explorar */
+.explore-button {
+    background-color: #61dafb; /* Color de fondo */
+    border: none; /* Sin borde */
+    padding: 15px 25px; /* Tamaño más grande */
+    font-size: 16px; /* Tamaño de la fuente */
+    color: #000; /* Color del texto */
+    cursor: pointer; /* Cursor de mano */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-top: 20px;
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efecto hover para los botones de explorar */
+.explore-button:hover {
+    background-color: #21a1f1; /* Cambiar color de fondo al pasar el cursor */
+    transform: translateY(-3px); /* Movimiento hacia arriba */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Estilo cuando el botón es seleccionado */
+.explore-button:focus {
+    outline: none; /* Eliminar borde por defecto al hacer foco */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Resaltar con sombra al hacer clic */
+}
