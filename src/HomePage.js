@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
-import 'font-awesome/css/font-awesome.min.css'; // Importar Font Awesome
+import 'font-awesome/css/font-awesome.min.css';
 
 function HomePage() {
   const navigate = useNavigate();

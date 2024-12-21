@@ -111,4 +111,23 @@
       font-size: 14px;
     }
   }
+  .admin-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .admin-button {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color de texto */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el ratón */
+  }
   
