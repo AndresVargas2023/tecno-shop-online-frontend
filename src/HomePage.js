@@ -18,12 +18,6 @@ function HomePage() {
           Explorar Todos los Productos
         </button>
       </header>
-
-      <section className="search-bar">
-        <input type="text" placeholder="Busca productos..." />
-        <button className="search-button">Buscar</button>
-      </section>
-
       <section className="homepage-section">
         <h2>Explora nuestras categorías</h2>
         <div className="categories">
