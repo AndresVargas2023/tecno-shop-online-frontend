@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Para obtener parámetros de la URL
+import { useNavigate } from 'react-router-dom'; // useNavigate para la navegación
 import './admin'; // Importa el archivo CSS con los estilos mejorados
 
 function ProductList() {
-  const { category } = useParams(); // Obtén el parámetro de la categoría de la URL
+  const navigate = useNavigate(); // Para la redirección
   const [products, setProducts] = useState([]);
 
-  // Carga de productos al montar el componente o cambiar la categoría
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const url = category 
-          ? `${process.env.REACT_APP_API_URL}/products?category=${category}` // Si hay categoría, filtra por ella
-          : `${process.env.REACT_APP_API_URL}/products`; // Si no, muestra todos los productos
-
-        const response = await axios.get(url);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error al cargar los productos:', error);
@@ -23,7 +18,7 @@ function ProductList() {
     };
 
     fetchProducts();
-  }, [category]); // Dependencia de la categoría para recargar cuando cambie
+  }, []);
 
   // Función para eliminar un producto
   const handleDelete = async (id) => {
@@ -39,9 +34,14 @@ function ProductList() {
     }
   };
 
+  // Función para redirigir al formulario de edición
+  const handleEdit = (id) => {
+    navigate(`/edit-product/${id}`); // Redirige a la página de edición con el ID del producto
+  };
+
   return (
     <div className="product-list">
-      <h2>Lista de Productos {category ? `en la categoría: ${category}` : ''}</h2>
+      <h2>Lista de Productos</h2>
       <table>
         <thead>
           <tr>
@@ -58,6 +58,7 @@ function ProductList() {
               <td>{product.price}</td>
               <td>{product.category}</td>
               <td>
+                <button onClick={() => handleEdit(product._id)}>Editar</button>
                 <button onClick={() => handleDelete(product._id)}>Eliminar</button>
               </td>
             </tr>
