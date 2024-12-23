@@ -78,7 +78,9 @@ function HomePage() {
       <i className="fa fa-whatsapp"></i>
     </a>
   </div>
+  <p className="footer-text">Sitio web construido por <a href="https://www.weblabstudios.com" target="_blank" rel="noopener noreferrer">WebLab Studios</a></p>
 </footer>
+
 
     </div>
   );
