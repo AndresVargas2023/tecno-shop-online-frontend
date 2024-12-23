@@ -130,4 +130,27 @@
   .admin-button:hover {
     background-color: #45a049; /* Color de fondo al pasar el ratón */
   }
+  .homepage-footer {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .social-media a {
+    font-size: 24px;
+    margin: 0 15px; /* Separación entre los íconos */
+    color: #000; /* Color de los íconos */
+    transition: color 0.3s ease;
+  }
+  
+  .social-media a:hover {
+    color: #007bff; /* Color de los íconos al pasar el mouse */
+  }
+  
+  .social-media i {
+    margin: 0 10px; /* Añade espacio entre los íconos de Font Awesome */
+  }
+  
+  .social-media svg {
+    margin: 0 10px; /* Añade espacio entre el ícono de TikTok si usas svg (React Icons) */
+  }
   

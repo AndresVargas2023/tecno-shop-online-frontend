@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';  // Importar useNavigate
 import './admin.css';  // Importa el archivo CSS
 
 function Admin() {
+  const navigate = useNavigate();  // Inicializa el hook de navegación
+
   return (
     <div className="admin-container">
       <h1 className="admin-header">Panel de Administración</h1>
@@ -13,14 +16,17 @@ function Admin() {
         <h2>Opciones de Administración</h2>
         <div className="admin-buttons">
           {/* Botones para gestionar productos */}
-          <button className="admin-button" onClick={() => window.location.href = "/admin/products"}>
+          <button
+            className="admin-button"
+            onClick={() => navigate('/admin/products')}
+          >
             Ver Productos
           </button>
-          <button className="admin-button" onClick={() => window.location.href = "/admin/products/add"}>
+          <button
+            className="admin-button"
+            onClick={() => navigate('/admin/products/add')}
+          >
             Agregar Productos
-          </button>
-          <button className="admin-button" onClick={() => window.location.href = "/admin/products/edit"}>
-            Modificar Productos
           </button>
         </div>
 

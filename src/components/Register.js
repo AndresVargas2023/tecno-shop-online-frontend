@@ -12,7 +12,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', { username, password });
+      await axios.post('http://localhost:5000/api/auth/register', { username, password });
       alert('Usuario administrador creado');
       navigate('/login'); // Redirigir a la página de login después de crear el usuario
     } catch (err) {

@@ -70,3 +70,95 @@
   text-decoration: underline;
   color: #0056b3;
 }
+/* Estilos generales para la lista de productos */
+.product-list {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.product-list h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.product-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.product-list th, .product-list td {
+  padding: 12px;
+  text-align: left;
+}
+
+.product-list th {
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.product-list td {
+  background-color: #fff;
+  border-bottom: 1px solid #f1f1f1;
+  color: #555;
+}
+
+.product-list tr:hover {
+  background-color: #f1f1f1;
+}
+
+.product-list button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-list button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los enlaces */
+.product-list a {
+  text-decoration: none;
+}
+
+.product-list a:hover {
+  color: #0056b3;
+}
+
+/* Agregar un poco de estilo a las celdas de la tabla */
+.product-list td button {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Media queries para la adaptabilidad */
+@media (max-width: 768px) {
+  .product-list {
+    padding: 10px;
+  }
+
+  .product-list h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-list th, .product-list td {
+    padding: 10px;
+  }
+
+  .product-list button {
+    padding: 6px 12px;
+  }
+}
