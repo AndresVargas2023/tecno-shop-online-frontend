@@ -11,6 +11,7 @@ import ProductForm from './components/ProductForm'; // Importa el formulario par
 import ProductList from './administracion/ProductList';  // Componente para listar productos
 import ProductListCustomer from './components/ProductListCustomer';  // Componente para listar productos
 import AllProductsPage from './components/ProductListCustomer';  // Componente para listar productos
+import Layout from './components/Layout';
 
 
 function App() {
@@ -28,13 +29,13 @@ function App() {
           path="/admin" 
           element={<PrivateRoute element={<Admin />} />} 
         />
-        {/* Rutas para productos */}
         <Route path="/admin/products" element={<ProductList />} /> {/* Ruta para ver la lista de productos */}
         <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
         <Route path="/edit-product/:id" element={<ProductForm />} />
-
         <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
+
       </Routes>
+      <Layout /> 
     </Router>
   );
 }

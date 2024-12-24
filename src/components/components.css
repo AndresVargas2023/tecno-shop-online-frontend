@@ -1,3 +1,87 @@
+/* Estilo principal del contenedor del login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f6f8;
+}
+
+.login-box {
+  background-color: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-box h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.register-link {
+  margin-top: 20px;
+}
+
+.register-button {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-button:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
 .product-list-customer {
   padding: 20px;
   max-width: 1200px;
@@ -102,4 +186,22 @@ h2 {
 .product-card p {
   font-size: 1rem;
   color: #555;
+}
+/*Layout css*/
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-content {
+  flex: 1; /* Empuja el footer hacia el final */
+}
+
+.layout-footer {
+  background-color: #6b6868;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
 }

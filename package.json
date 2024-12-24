@@ -5,8 +5,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.2.1",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
     "@mui/system": "^6.2.1",
+    "@mui/utils": "^6.3.0",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "font-awesome": "^4.7.0",
@@ -23,7 +25,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -42,7 +43,7 @@
       "last 1 safari version"
     ]
   },
-"proxy": "https://tecno-shop-online-backend.onrender.com",
+  "proxy": "https://tecno-shop-online-backend.onrender.com",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }

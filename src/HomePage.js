@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import 'font-awesome/css/font-awesome.min.css';
-import { FaTiktok } from 'react-icons/fa';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -59,25 +58,6 @@ function HomePage() {
           </div>
         </div>
       </section>
-
-      <footer className="homepage-footer">
-        <p>&copy; 2024 TecnoShop. Todos los derechos reservados.</p>
-        <div className="social-media">
-          <a href="https://www.facebook.com/people/TecnoShop-Online/61570247912665/" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-facebook"></i>
-          </a>
-          <a href="https://www.tiktok.com/@tecnoshop_online24" target="_blank" rel="noopener noreferrer">
-            <FaTiktok />
-          </a>
-          <a href="https://www.instagram.com/tecnoshopoline24/" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-instagram"></i>
-          </a>
-          <a href="https://wa.me/595984086958" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-whatsapp"></i>
-          </a>
-        </div>
-        <p className="footer-text">Sitio web construido por <a href="https://www.weblabstudios.com" target="_blank" rel="noopener noreferrer">WebLab Studios</a></p>
-      </footer>
     </div>
   );
 }
