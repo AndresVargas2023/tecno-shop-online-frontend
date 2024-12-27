@@ -1,11 +1,10 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { Box, Container, Typography, Link, IconButton } from '@mui/material';
+import { Outlet, Link } from 'react-router-dom';
+import { Box, Container, Typography, IconButton, Button } from '@mui/material';
 import { FaTiktok } from 'react-icons/fa';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-
 
 function Layout() {
   return (
@@ -17,11 +16,28 @@ function Layout() {
       </Box>
 
       {/* Footer */}
-      <Box component="footer" sx={{ bgcolor: 'primary.main', color: 'white', py: 3, textAlign: 'center' }}>
-        <Typography variant="body2" gutterBottom>
+      <Box component="footer" sx={{ bgcolor: 'primary.main', color: 'white', py: 1, textAlign: 'center' }}>
+        
+        {/* Enlaces de navegación */}
+        <Box display="flex" justifyContent="center" gap={5} my={1}> {/* Reducido el margen aquí */}
+          <Link to="/about" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="secondary" sx={{ color: 'white' }}>
+              Acerca de
+            </Button>
+          </Link>
+          <Link to="/contact" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="secondary" sx={{ color: 'white' }}>
+              Contacto
+            </Button>
+          </Link>
+        </Box>
+        
+        <Typography variant="body2" gutterBottom sx={{ my: 0.5 }}> {/* Reducido el margen aquí */}
           &copy; 2024 TecnoShop. Todos los derechos reservados.
         </Typography>
-        <Box display="flex" justifyContent="center" gap={2} my={2}>
+
+        {/* Redes sociales */}
+        <Box display="flex" justifyContent="center" gap={1} my={0.5}> {/* Reducido el margen aquí */}
           <IconButton
             href="https://www.facebook.com/people/TecnoShop-Online/61570247912665/"
             target="_blank"
@@ -55,7 +71,8 @@ function Layout() {
             <WhatsAppIcon />
           </IconButton>
         </Box>
-        <Typography variant="body2">
+
+        <Typography variant="body2" sx={{ my: 0.5 }}> {/* Reducido el margen aquí */}
           Sitio web construido por{' '}
           <Link
             href="https://www.weblabstudios.com"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles'; // Importa ThemeProvider y createTheme
 import Navbar from './components/Navbar'; // Asegúrate de importar el Navbar
 import HomePage from './HomePage';
 
@@ -16,33 +17,47 @@ import AdminUsers from './administracion/AdminUsers';  // Importar el componente
 import EditUser from './administracion/EditUser';  // Importar el componente de edición
 import ForgotPassword from './components/ForgotPassword';
 
+// Crea un tema con una paleta definida
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',  // Puedes personalizar los colores del tema
+    },
+    secondary: {
+      main: '#9c27b0',
+    },
+  },
+});
 
 function App() {
   return (
-    <Router>
-      <Navbar /> 
+    // Envuelve tu aplicación con ThemeProvider para que todos los componentes puedan acceder al tema
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Navbar /> 
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Login" element={<Login />} />  {/* Ruta al Login */}
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/products/:category" element={<ProductListCustomer />} /> {/* Ruta para productos por categoría */}
-        <Route path="/products" element={<ProductListCustomer />} />
-        <Route path="/products" element={<AllProductsPage />} />
-        <Route 
-          path="/admin" 
-          element={<PrivateRoute element={<Admin />} />} 
-        />
-        <Route path="/admin/users" element={<AdminUsers />} /> {/* Nueva ruta */}
-        <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-        <Route path="/admin/products" element={<ProductList />} /> {/* Ruta para ver la lista de productos */}
-        <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
-        <Route path="/edit-product/:id" element={<ProductForm />} />
-        <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Login" element={<Login />} />  {/* Ruta al Login */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/products/:category" element={<ProductListCustomer />} /> {/* Ruta para productos por categoría */}
+          <Route path="/products" element={<ProductListCustomer />} />
+          <Route path="/products" element={<AllProductsPage />} />
+          <Route 
+            path="/admin" 
+            element={<PrivateRoute element={<Admin />} />} 
+          />
+          <Route path="/admin/users" element={<AdminUsers />} /> {/* Nueva ruta */}
+          <Route path="/admin/users/edit/:userId" element={<EditUser />} />
+          <Route path="/admin/products" element={<ProductList />} /> {/* Ruta para ver la lista de productos */}
+          <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
+          <Route path="/edit-product/:id" element={<ProductForm />} />
+          <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
+        </Routes>
 
-      </Routes>
-      <Layout /> 
-    </Router>
+        <Layout /> 
+      </Router>
+    </ThemeProvider>
   );
 }
 

@@ -20,6 +20,8 @@ function Login() {
 
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', role);
+      localStorage.setItem('userName', response.data.name); // Corregido
+      localStorage.setItem('userSurname', response.data.surname); // Corregido
 
       // Emitir evento personalizado para notificar cambios de autenticación
       window.dispatchEvent(new Event('authChange'));
