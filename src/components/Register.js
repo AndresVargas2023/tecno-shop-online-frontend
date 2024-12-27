@@ -10,6 +10,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
+  const [address, setAddress] = useState(''); // Agregar estado para la dirección
   const [error, setError] = useState('');
   const [isRegistered, setIsRegistered] = useState(false); // Controla si se muestra el formulario de verificación
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function Register() {
         email,
         password,
         confirmPassword,
+        address, // Enviar la dirección al backend
       });
 
       console.log(response.data.message); // Mostrar mensaje solo en consola
@@ -138,6 +140,14 @@ function Register() {
             placeholder="Confirmar Contraseña"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <input
+            className="input-field"
+            type="text"
+            placeholder="Dirección"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)} // Control de la dirección
             required
           />
           <button type="submit" className="submit-button">Crear Usuario</button>
