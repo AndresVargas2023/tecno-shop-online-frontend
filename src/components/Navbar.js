@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Button, IconButton, Drawer, List, ListItem, ListItemText, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Drawer, List, ListItem, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home'; // Importamos el icono de inicio
 
-const NavLinks = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  marginLeft: theme.spacing(4),
-  '& a': {
-    textDecoration: 'none',
-    color: 'white',
-    fontWeight: 600,
-    marginRight: theme.spacing(3),
-    '&:hover': {
-      color: '#f5f5f5',
-      textDecoration: 'underline',
-    },
-  },
-}));
-
+// Estilos responsivos utilizando sx de Material UI
 const LogoContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
+  flexGrow: 1,
 });
 
 const LogoImage = styled('img')({
   height: 50,
   marginRight: 10,
+  '@media (max-width: 600px)': {
+    height: 40, // Logo más pequeño en móviles
+  },
 });
 
 const UserBox = styled(Box)({
@@ -46,13 +35,8 @@ const LogoutButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#e64a19',
   },
-}));
-
-const AdminButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#4caf50',
-  color: 'white',
-  '&:hover': {
-    backgroundColor: '#388e3c',
+  '@media (max-width: 600px)': {
+    fontSize: '0.8rem', // Botón más pequeño en móvil
   },
 }));
 
@@ -62,14 +46,19 @@ const LoginButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#1565c0',
   },
+  '@media (max-width: 600px)': {
+    fontSize: '0.8rem', // Botón más pequeño en móvil
+  },
 }));
 
 const DrawerList = styled(List)(({ theme }) => ({
   width: 250,
   backgroundColor: theme.palette.primary.main,
+  '@media (max-width: 600px)': {
+    width: '100%', // Drawer ocupando todo el ancho en móvil
+  },
 }));
 
-// Estilo para el link del Drawer que incluye icono y texto
 const DrawerLink = styled('div')({
   display: 'flex',
   alignItems: 'center',
@@ -159,15 +148,14 @@ function Navbar() {
               </Link>
             </ListItem>
             {(role === 'admin' || role === 'moderator') && (
-             <ListItem button onClick={toggleDrawer}>
-            <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
-            <DrawerLink>
-              Administrar
-          </DrawerLink>
-    </Link>
-  </ListItem>
-)}
-
+              <ListItem button onClick={toggleDrawer}>
+                <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
+                  <DrawerLink>
+                    Administrar
+                  </DrawerLink>
+                </Link>
+              </ListItem>
+            )}
           </DrawerList>
         </Drawer>
 
