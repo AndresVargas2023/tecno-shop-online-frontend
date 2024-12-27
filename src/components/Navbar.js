@@ -158,15 +158,16 @@ function Navbar() {
                 </DrawerLink>
               </Link>
             </ListItem>
-            {role === 'admin' && (
-              <ListItem button onClick={toggleDrawer}>
-                <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
-                  <DrawerLink>
-                    Administrar
-                  </DrawerLink>
-                </Link>
-              </ListItem>
-            )}
+            {(role === 'admin' || role === 'moderator') && (
+             <ListItem button onClick={toggleDrawer}>
+            <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
+            <DrawerLink>
+              Administrar
+          </DrawerLink>
+    </Link>
+  </ListItem>
+)}
+
           </DrawerList>
         </Drawer>
 
