@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // useNavigate para la navegación
-import './admin'; // Importa el archivo CSS con los estilos mejorados
+import './admin.css'; // Importa el archivo CSS con los estilos mejorados
 
 function ProductList() {
   const navigate = useNavigate(); // Para la redirección
   const [products, setProducts] = useState([]);
+  const [role, setRole] = useState(null); // Estado para almacenar el rol del usuario
 
+  // Obtener el rol del usuario al cargar el componente
   useEffect(() => {
+    const userRole = localStorage.getItem('userRole'); // Obtenemos el rol desde localStorage
+    console.log('Rol obtenido desde localStorage:', userRole);  // Log para depurar
+
+    // Si no hay rol o el rol es 'user', redirigir al inicio
+    if (!userRole || userRole === 'user') {
+      console.log('Acceso no autorizado, redirigiendo...');
+      navigate('/');  // Redirige al inicio si el rol es 'usuario'
+      return;  // Evita la carga del resto del componente si no es admin o moderator
+    }
+
+    // Si el rol existe y es adecuado (admin o moderator), establecerlo en el estado
+    setRole(userRole);  // Establecemos el rol en el estado
+
+    // Función para obtener los productos
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
@@ -18,7 +34,7 @@ function ProductList() {
     };
 
     fetchProducts();
-  }, []);
+  }, [navigate]);
 
   // Función para eliminar un producto
   const handleDelete = async (id) => {

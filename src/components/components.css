@@ -1,20 +1,35 @@
-/* Estilo principal del contenedor del login */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f6f8;
+/* Restablecer márgenes y padding globales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Asegura que el padding y el border no afecten el tamaño de los elementos */
 }
 
+html, body {
+  height: 100%;  /* Asegura que la altura total esté ocupada */
+  font-family: Arial, sans-serif; /* Asegura una fuente consistente */
+  background-color: #f4f4f4; /* Fondo de la página */
+}
+
+/* Contenedor principal para centrar el formulario */
+.login-container {
+  display: flex;                /* Usamos flexbox para el centrado */
+  justify-content: center;      /* Centrado horizontal */
+  align-items: center;          /* Centrado vertical */
+  height: 100vh;                /* Altura completa de la ventana */
+  background-color: #f4f4f4;    /* Fondo opcional */
+  padding: 0;                   /* Asegura que no haya margen en el contenedor */
+}
+
+/* El formulario de login */
 .login-box {
   background-color: #ffffff;
   padding: 30px;
   width: 100%;
-  max-width: 400px;
+  max-width: 400px;             /* El ancho máximo que debe tener el formulario */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: center;           /* El texto dentro del formulario estará centrado */
 }
 
 .login-box h2 {
@@ -187,7 +202,8 @@ h2 {
   font-size: 1rem;
   color: #555;
 }
-/*Layout css*/
+
+/* Layout CSS */
 .layout {
   display: flex;
   flex-direction: column;
@@ -204,4 +220,132 @@ h2 {
   text-align: center;
   padding: 10px 0;
   width: 100%;
+}
+
+/* Contenedor principal */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f4f7fb;
+  min-height: 100vh;
+}
+
+.register-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Formulario de registro */
+.register-form, .form-verify {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.verification-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submit-button {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.verification-message {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #218838;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media screen and (max-width: 480px) {
+  .login-box, .register-form, .form-verify, .verification-form {
+    padding: 20px;
+    width: 90%;  /* Asegura que el formulario ocupe un 90% del ancho en pantallas pequeñas */
+  }
+
+  .verification-form {
+    padding: 20px;
+    width: 90%;
+  }
+}
+
+.forgot-link {
+  color: #007bff;  /* Color azul */
+  text-decoration: underline;  /* Subrayado como enlace */
+  cursor: pointer;  /* Muestra el puntero del mouse como enlace */
+  padding-top: 10px;
+}
+
+.forgot-link:hover {
+  color: #0056b3;  /* Color más oscuro cuando se pasa el mouse */
+  text-decoration: none;  /* Quita el subrayado al pasar el mouse */
 }

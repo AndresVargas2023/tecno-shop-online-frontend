@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './components.css';  // Asegúrate de tener este archivo CSS
+import { useNavigate, Link } from 'react-router-dom';
+import './components.css'; // Importa tus estilos
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -13,22 +13,29 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
-      const { token } = response.data;
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const { token, role } = response.data;
 
-      // Guardar el token en el almacenamiento local
       localStorage.setItem('token', token);
+      localStorage.setItem('userRole', role);
 
-      // Redirigir al panel de administración
-      navigate('/admin');
+      // Emitir evento personalizado para notificar cambios de autenticación
+      window.dispatchEvent(new Event('authChange'));
+
+      // Redirección basada en el rol
+      if (role === 'admin' || role === 'moderator') {
+        navigate('/admin'); // Redirigir a la página de administrador
+      } else {
+        navigate('/'); // Otra ruta para usuarios normales
+      }
     } catch (err) {
       setError('Credenciales incorrectas');
+      console.error("Error al iniciar sesión:", err); // Para depurar
     }
   };
 
   const handleRegister = () => {
-    // Redirigir a la página de registro
-    navigate('/Register');
+    navigate('/register');
   };
 
   return (
@@ -38,10 +45,10 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <input
-              type="text"
-              placeholder="Nombre de usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="input-field"
               required
             />
@@ -59,8 +66,15 @@ function Login() {
           <button type="submit" className="submit-button">Iniciar sesión</button>
         </form>
         {error && <p className="error-message">{error}</p>}
+        <div className="forgot-link-container">
+          <Link to="/forgot-password" className="forgot-link">
+            ¿Olvidaste tu contraseña?
+          </Link>
+        </div>
         <div className="register-link">
-          <button onClick={handleRegister} className="register-button">¿No tienes cuenta? Regístrate</button>
+          <button onClick={handleRegister} className="register-button">
+            ¿No tienes cuenta? Regístrate
+          </button>
         </div>
       </div>
     </div>

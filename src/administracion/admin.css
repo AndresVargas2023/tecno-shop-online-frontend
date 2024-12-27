@@ -162,3 +162,147 @@
     padding: 6px 12px;
   }
 }
+
+/* admin.css */
+.admin-users-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-users-header {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.admin-users-table th {
+  background-color: #f4f4f4;
+}
+
+.admin-users-table button {
+  padding: 6px 12px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #4caf50; /* Verde */
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.delete-button {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.error-message {
+  color: red;
+  font-size: 1rem;
+}
+
+/* Contenedor principal */
+.edit-user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100vh;
+  background-color: #f4f7fa;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+/* Estilo de los formularios */
+form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Estilo del botón */
+button {
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo de los mensajes de error */
+.error-message {
+  color: #d9534f;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+p {
+  color: #333;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+/* Estilo para el select */
+select {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}

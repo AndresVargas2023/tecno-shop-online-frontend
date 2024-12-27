@@ -12,6 +12,9 @@ import ProductList from './administracion/ProductList';  // Componente para list
 import ProductListCustomer from './components/ProductListCustomer';  // Componente para listar productos
 import AllProductsPage from './components/ProductListCustomer';  // Componente para listar productos
 import Layout from './components/Layout';
+import AdminUsers from './administracion/AdminUsers';  // Importar el componente AdminUsers
+import EditUser from './administracion/EditUser';  // Importar el componente de edición
+import ForgotPassword from './components/ForgotPassword';
 
 
 function App() {
@@ -22,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<Login />} />  {/* Ruta al Login */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/products/:category" element={<ProductListCustomer />} /> {/* Ruta para productos por categoría */}
         <Route path="/products" element={<ProductListCustomer />} />
         <Route path="/products" element={<AllProductsPage />} />
@@ -29,6 +33,8 @@ function App() {
           path="/admin" 
           element={<PrivateRoute element={<Admin />} />} 
         />
+        <Route path="/admin/users" element={<AdminUsers />} /> {/* Nueva ruta */}
+        <Route path="/admin/users/edit/:userId" element={<EditUser />} />
         <Route path="/admin/products" element={<ProductList />} /> {/* Ruta para ver la lista de productos */}
         <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
         <Route path="/edit-product/:id" element={<ProductForm />} />
