@@ -10,10 +10,12 @@ function EditUser() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate(); // Inicializar el hook de navegación
 
+  const API_URL = process.env.REACT_APP_API_URL; // Usar la variable de entorno
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/auth/users/${userId}`);
+        const response = await axios.get(`${API_URL}/auth/users/${userId}`); // Usar la variable de entorno para la URL
         setUser(response.data);
         setLoading(false);
       } catch (err) {
@@ -23,7 +25,7 @@ function EditUser() {
     };
 
     fetchUser();
-  }, [userId]);
+  }, [userId, API_URL]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +35,7 @@ function EditUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/auth/users/${userId}`, user);
+      await axios.put(`${API_URL}/auth/users/${userId}`, user); // Usar la variable de entorno para la URL
       alert('Usuario actualizado correctamente');
       navigate('/admin/users'); // Redirigir a la lista de usuarios después de la actualización
     } catch (err) {

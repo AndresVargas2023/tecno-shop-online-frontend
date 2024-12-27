@@ -7,11 +7,13 @@ function AdminUsers() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const API_URL = process.env.REACT_APP_API_URL; // Usar la variable de entorno
+
   // Cargar la lista de usuarios cuando el componente se monta
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/auth/users');
+        const response = await axios.get(`${API_URL}/auth/users`); // Usar la variable de entorno para la URL
         setUsers(response.data);
       } catch (err) {
         setError('Error al cargar los usuarios.');
@@ -19,12 +21,12 @@ function AdminUsers() {
     };
 
     fetchUsers();
-  }, []);
+  }, [API_URL]);
 
   // Eliminar usuario
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/auth/users/${userId}`);
+      await axios.delete(`${API_URL}/auth/users/${userId}`); // Usar la variable de entorno para la URL
       setUsers(users.filter((user) => user._id !== userId)); // Eliminar el usuario de la lista local
       alert('Usuario eliminado correctamente');
     } catch (err) {

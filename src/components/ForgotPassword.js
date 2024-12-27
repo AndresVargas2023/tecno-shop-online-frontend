@@ -14,11 +14,13 @@ function ForgotPassword() {
   const [loading, setLoading] = useState(false);  // Estado para la carga mientras se espera la respuesta
   const navigate = useNavigate();
 
+  const API_URL = process.env.REACT_APP_API_URL; // Usar la variable de entorno para la URL base
+
   const handleRequestCode = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/request-password-reset', { email });
+      const response = await axios.post(`${API_URL}/auth/request-password-reset`, { email });
       setMessage('Se ha enviado un código de recuperación a tu correo electrónico');
       setStep(2);  // Cambiar a la segunda parte del proceso
       setLoading(false);
@@ -33,14 +35,14 @@ function ForgotPassword() {
     setLoading(true);
     try {
       // Verificar código de recuperación
-      const verifyResponse = await axios.post('http://localhost:5000/api/auth/verify-password-reset-code', { 
+      const verifyResponse = await axios.post(`${API_URL}/auth/verify-password-reset-code`, { 
         email,  // Se incluye el correo para verificar el código en el backend
         code 
       });
 
       if (verifyResponse.status === 200) {
         // Verificar código exitoso, ahora restablecer la contraseña
-        const resetResponse = await axios.post('http://localhost:5000/api/auth/reset-password', {
+        const resetResponse = await axios.post(`${API_URL}/auth/reset-password`, {
           token: code,  // Token que se envía en el cuerpo
           newPassword  // Nueva contraseña
         });

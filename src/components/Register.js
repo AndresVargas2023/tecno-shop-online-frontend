@@ -23,7 +23,7 @@ function Register() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
         name,
         surname,
         email,
@@ -47,7 +47,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/verify', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/verify`, {
         email,
         code: verificationCode,
       });
@@ -68,7 +68,7 @@ function Register() {
 
   const handleLogin = async () => {
     try {
-      const loginResponse = await axios.post('http://localhost:5000/api/auth/login', {
+      const loginResponse = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
         email,
         password,
       });

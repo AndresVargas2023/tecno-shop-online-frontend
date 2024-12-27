@@ -9,11 +9,13 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const API_URL = process.env.REACT_APP_API_URL; // Usar la variable de entorno
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password }); // Usar la variable de entorno
       const { token, role } = response.data;
 
       localStorage.setItem('token', token);
