@@ -31,6 +31,7 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
+  flex-wrap: wrap;  /* Esto hace que los botones se apilen en pantallas pequeñas */
 }
 
 .admin-button {
@@ -42,6 +43,8 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 5px; /* Añado un margen para separar los botones */
+  flex: 1 1 45%; /* Los botones ocuparán un 45% del ancho en pantallas pequeñas */
 }
 
 .admin-button:hover {
@@ -70,6 +73,59 @@
   text-decoration: underline;
   color: #0056b3;
 }
+
+/* Media Queries para dispositivos pequeños */
+@media (max-width: 768px) {
+  .admin-header {
+    font-size: 1.5rem;  /* Ajustar el tamaño del título en pantallas pequeñas */
+  }
+
+  .admin-description {
+    font-size: 1rem;  /* Ajustar el tamaño de la descripción en pantallas pequeñas */
+  }
+
+  .admin-buttons {
+    flex-direction: column;  /* Los botones se apilan en pantallas pequeñas */
+    align-items: center;  /* Centra los botones */
+  }
+
+  .admin-button {
+    width: 80%;  /* Aumenta el tamaño de los botones para que ocupen más espacio */
+  }
+
+  .admin-users h3 {
+    font-size: 1.2rem;  /* Ajustar el tamaño de los encabezados */
+  }
+
+  .admin-link {
+    font-size: 1rem;  /* Ajustar el tamaño del enlace */
+  }
+}
+
+/* Media Queries para dispositivos muy pequeños (teléfonos) */
+@media (max-width: 480px) {
+  .admin-header {
+    font-size: 1.3rem;  /* Ajuste adicional para pantallas muy pequeñas */
+  }
+
+  .admin-description {
+    font-size: 0.9rem;  /* Ajuste adicional en la descripción */
+  }
+
+  .admin-buttons {
+    flex-direction: column;  /* Los botones siempre se apilan en pantallas muy pequeñas */
+    align-items: center;  /* Centra los botones */
+  }
+
+  .admin-button {
+    width: 90%;  /* Los botones ocuparán casi todo el ancho en pantallas muy pequeñas */
+  }
+
+  .admin-users h3 {
+    font-size: 1rem;  /* Ajuste del tamaño de los encabezados */
+  }
+}
+
 /* Estilos generales para la lista de productos */
 .product-list {
   padding: 20px;
