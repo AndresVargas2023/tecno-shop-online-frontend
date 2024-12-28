@@ -162,7 +162,7 @@ function Navbar() {
         <UserBox>
           {isAuthenticated && (
             <span style={{ color: 'white', marginRight: '1rem' }}>
-              {userName} {userSurname}
+            Hola,  {userName} {userSurname}
             </span>
           )}
         </UserBox>
