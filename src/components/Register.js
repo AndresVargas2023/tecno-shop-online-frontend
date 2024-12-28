@@ -10,9 +10,11 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
-  const [address, setAddress] = useState(''); // Agregar estado para la dirección
+  const [address, setAddress] = useState('');
   const [error, setError] = useState('');
-  const [isRegistered, setIsRegistered] = useState(false); // Controla si se muestra el formulario de verificación
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado para manejar "Procesando..."
+  const [isVerifying, setIsVerifying] = useState(false); // Estado para manejar "Verificando..."
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -23,6 +25,8 @@ function Register() {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
         name,
@@ -30,23 +34,27 @@ function Register() {
         email,
         password,
         confirmPassword,
-        address, // Enviar la dirección al backend
+        address,
       });
 
-      console.log(response.data.message); // Mostrar mensaje solo en consola
+      console.log(response.data.message);
       setError('');
-      setIsRegistered(true); // Mostrar el formulario de verificación
+      setIsRegistered(true);
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message || 'Error al crear el usuario');
       } else {
         setError('Error al crear el usuario');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleVerify = async (e) => {
     e.preventDefault();
+
+    setIsVerifying(true);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/verify`, {
@@ -55,9 +63,8 @@ function Register() {
       });
 
       setError('');
-      console.log(response.data.message); // Mostrar mensaje solo en consola
+      console.log(response.data.message);
 
-      // Realizar login automático después de la verificación
       await handleLogin();
     } catch (err) {
       if (err.response && err.response.data) {
@@ -65,6 +72,8 @@ function Register() {
       } else {
         setError('Error al verificar el código');
       }
+    } finally {
+      setIsVerifying(false);
     }
   };
 
@@ -75,8 +84,15 @@ function Register() {
         password,
       });
 
-      localStorage.setItem('token', loginResponse.data.token); // Guardar token
-      navigate('/'); // Redirigir a la página principal
+      localStorage.setItem('token', loginResponse.data.token);
+      localStorage.setItem('userRole', loginResponse.data.role);
+      localStorage.setItem('userName', loginResponse.data.name);
+      localStorage.setItem('userSurname', loginResponse.data.surname);
+
+      // Emitir evento de autenticación
+      window.dispatchEvent(new Event('authChange'));
+
+      navigate('/');
     } catch (err) {
       setError('Error al iniciar sesión automáticamente. Por favor, inicia sesión manualmente.');
     }
@@ -97,7 +113,9 @@ function Register() {
               onChange={(e) => setVerificationCode(e.target.value)}
               required
             />
-            <button type="submit" className="submit-button">Verificar Código</button>
+            <button type="submit" className="submit-button" disabled={isVerifying}>
+              {isVerifying ? 'Verificando...' : 'Verificar Código'}
+            </button>
           </form>
         </div>
       ) : (
@@ -147,10 +165,12 @@ function Register() {
             type="text"
             placeholder="Dirección"
             value={address}
-            onChange={(e) => setAddress(e.target.value)} // Control de la dirección
+            onChange={(e) => setAddress(e.target.value)}
             required
           />
-          <button type="submit" className="submit-button">Crear Usuario</button>
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? 'Procesando...' : 'Crear Usuario'}
+          </button>
         </form>
       )}
 

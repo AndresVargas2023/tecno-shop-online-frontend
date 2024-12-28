@@ -8,6 +8,7 @@ import Admin from './administracion/admin'; // Importa el componente de administ
 import Login from './components/Login';   // Importa tu Login
 import PrivateRoute from './routes/PrivateRoute'; // Importa PrivateRoute desde 'routes'
 import Register from './components/Register';  // Agregar la ruta para registro
+import Verification from './components/Verification';  // Agregar la ruta para registro
 import ProductForm from './components/ProductForm'; // Importa el formulario para agregar/editar productos
 import ProductList from './administracion/ProductList';  // Componente para listar productos
 import ProductListCustomer from './components/ProductListCustomer';  // Componente para listar productos
@@ -16,6 +17,7 @@ import Layout from './components/Layout';
 import AdminUsers from './administracion/AdminUsers';  // Importar el componente AdminUsers
 import EditUser from './administracion/EditUser';  // Importar el componente de edición
 import ForgotPassword from './components/ForgotPassword';
+import VerifyLink from './components/VerifyLink';  // Asegúrate de importar el componente correctamente
 
 // Crea un tema con una paleta definida
 const theme = createTheme({
@@ -53,6 +55,10 @@ function App() {
           <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
           <Route path="/edit-product/:id" element={<ProductForm />} />
           <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
+          <Route path="/verify" element={<Verification />} />
+          <Route path="/verify" element={<VerifyLink />} />
+
+
         </Routes>
 
         <Layout /> 

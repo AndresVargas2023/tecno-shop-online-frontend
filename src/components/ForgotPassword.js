@@ -8,10 +8,13 @@ function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');  // Estado para almacenar el código de recuperación
   const [newPassword, setNewPassword] = useState('');  // Estado para la nueva contraseña
+  const [confirmPassword, setConfirmPassword] = useState('');  // Estado para la confirmación de la nueva contraseña
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [step, setStep] = useState(1);  // Paso actual (1 para enviar código, 2 para ingresar código y nueva contraseña)
   const [loading, setLoading] = useState(false);  // Estado para la carga mientras se espera la respuesta
+  const [buttonText, setButtonText] = useState('Enviar Código');  // Para manejar el texto del botón
+  const [resetButtonText, setResetButtonText] = useState('Restablecer Contraseña'); // Texto para el botón de restablecer
   const navigate = useNavigate();
 
   const API_URL = process.env.REACT_APP_API_URL; // Usar la variable de entorno para la URL base
@@ -19,20 +22,28 @@ function ForgotPassword() {
   const handleRequestCode = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setButtonText('Enviando...');
     try {
       const response = await axios.post(`${API_URL}/auth/request-password-reset`, { email });
       setMessage('Se ha enviado un código de recuperación a tu correo electrónico');
       setStep(2);  // Cambiar a la segunda parte del proceso
       setLoading(false);
+      setButtonText('Enviar Código'); // Restaurar texto del botón
     } catch (err) {
       setError('Hubo un problema al enviar el código. Intenta de nuevo.');
       setLoading(false);
+      setButtonText('Enviar Código');
     }
   };
 
   const handleSubmitResetPassword = async (e) => {
     e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setError('Las contraseñas no coinciden.');
+      return;
+    }
     setLoading(true);
+    setResetButtonText('Restableciendo...');
     try {
       // Verificar código de recuperación
       const verifyResponse = await axios.post(`${API_URL}/auth/verify-password-reset-code`, { 
@@ -48,15 +59,19 @@ function ForgotPassword() {
         });
 
         // Si la contraseña se restablece exitosamente
-        setMessage('Tu contraseña ha sido restablecida exitosamente');
+        setMessage('Contraseña restablecida con éxito, por favor inicia sesión. Redirigiendo a Inicio de Sesión');
         setLoading(false);
+        setResetButtonText('Restablecer Contraseña'); // Restaurar texto del botón
 
         // Redirigir al login después de un exitoso restablecimiento de contraseña
-        navigate('/login');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000); // Espera 2 segundos antes de redirigir
       }
     } catch (err) {
       setError('Hubo un problema al restablecer tu contraseña. Intenta de nuevo.');
       setLoading(false);
+      setResetButtonText('Restablecer Contraseña');
     }
   };
 
@@ -91,7 +106,7 @@ function ForgotPassword() {
               disabled={loading}
               sx={{ marginTop: 2 }}
             >
-              {loading ? <CircularProgress size={24} /> : 'Enviar Código'}
+              {loading ? <CircularProgress size={24} /> : buttonText}
             </Button>
           </form>
         ) : (
@@ -116,6 +131,16 @@ function ForgotPassword() {
               onChange={(e) => setNewPassword(e.target.value)}
               required
             />
+            <TextField
+              label="Confirmar Contraseña"
+              type="password"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
             <Button
               type="submit"
               variant="contained"
@@ -124,7 +149,7 @@ function ForgotPassword() {
               disabled={loading}
               sx={{ marginTop: 2 }}
             >
-              {loading ? <CircularProgress size={24} /> : 'Restablecer Contraseña'}
+              {loading ? <CircularProgress size={24} /> : resetButtonText}
             </Button>
           </form>
         )}

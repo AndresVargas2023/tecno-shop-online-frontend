@@ -4,7 +4,8 @@ import { AppBar, Toolbar, Button, IconButton, Drawer, List, ListItem, Box } from
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home'; // Importamos el icono de inicio
+import HomeIcon from '@mui/icons-material/Home';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 // Estilos responsivos utilizando sx de Material UI
 const LogoContainer = styled('div')({
@@ -17,7 +18,7 @@ const LogoImage = styled('img')({
   height: 50,
   marginRight: 10,
   '@media (max-width: 600px)': {
-    height: 40, // Logo más pequeño en móviles
+    height: 40,
   },
 });
 
@@ -36,7 +37,7 @@ const LogoutButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#e64a19',
   },
   '@media (max-width: 600px)': {
-    fontSize: '0.8rem', // Botón más pequeño en móvil
+    fontSize: '0.8rem',
   },
 }));
 
@@ -47,7 +48,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#1565c0',
   },
   '@media (max-width: 600px)': {
-    fontSize: '0.8rem', // Botón más pequeño en móvil
+    fontSize: '0.8rem',
   },
 }));
 
@@ -55,7 +56,7 @@ const DrawerList = styled(List)(({ theme }) => ({
   width: 250,
   backgroundColor: theme.palette.primary.main,
   '@media (max-width: 600px)': {
-    width: '100%', // Drawer ocupando todo el ancho en móvil
+    width: '100%',
   },
 }));
 
@@ -71,7 +72,7 @@ const DrawerLink = styled('div')({
   },
   '& svg': {
     marginRight: '10px',
-  }
+  },
 });
 
 function Navbar() {
@@ -123,6 +124,18 @@ function Navbar() {
   return (
     <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)' }}>
       <Toolbar>
+        {/* Botón para retroceder */}
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="back"
+          sx={{ mr: 2 }}
+          onClick={() => navigate(-1)}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+
+        {/* Botón para abrir el menú */}
         <IconButton
           edge="start"
           color="inherit"
@@ -150,9 +163,7 @@ function Navbar() {
             {(role === 'admin' || role === 'moderator') && (
               <ListItem button onClick={toggleDrawer}>
                 <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
-                  <DrawerLink>
-                    Administrar
-                  </DrawerLink>
+                  <DrawerLink>Administrar</DrawerLink>
                 </Link>
               </ListItem>
             )}
@@ -162,7 +173,7 @@ function Navbar() {
         <UserBox>
           {isAuthenticated && (
             <span style={{ color: 'white', marginRight: '1rem' }}>
-            Hola,  {userName} {userSurname}
+              Hola, {userName} {userSurname}
             </span>
           )}
         </UserBox>
