@@ -125,24 +125,12 @@ function Navbar() {
     <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)' }}>
       <Toolbar>
         {/* Botón para retroceder */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="back"
-          sx={{ mr: 2 }}
-          onClick={() => navigate(-1)}
-        >
+        <IconButton edge="start" color="inherit" aria-label="back" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
           <ArrowBackIcon />
         </IconButton>
 
         {/* Botón para abrir el menú */}
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-          onClick={toggleDrawer}
-        >
+        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={toggleDrawer}>
           <MenuIcon />
         </IconButton>
 
@@ -160,6 +148,13 @@ function Navbar() {
                 </DrawerLink>
               </Link>
             </ListItem>
+            {isAuthenticated && (
+              <ListItem button onClick={toggleDrawer}>
+                <Link to="/profile" style={{ color: 'white', textDecoration: 'none' }}>
+                  <DrawerLink>Ver mi perfil</DrawerLink>
+                </Link>
+              </ListItem>
+            )}
             {(role === 'admin' || role === 'moderator') && (
               <ListItem button onClick={toggleDrawer}>
                 <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles'; // Importa ThemeProvider y createTheme
 import Navbar from './components/Navbar'; // Asegúrate de importar el Navbar
 import HomePage from './HomePage';
-
 import Admin from './administracion/admin'; // Importa el componente de administración
 import Login from './components/Login';   // Importa tu Login
 import PrivateRoute from './routes/PrivateRoute'; // Importa PrivateRoute desde 'routes'
@@ -18,6 +17,7 @@ import AdminUsers from './administracion/AdminUsers';  // Importar el componente
 import EditUser from './administracion/EditUser';  // Importar el componente de edición
 import ForgotPassword from './components/ForgotPassword';
 import VerifyLink from './components/VerifyLink';  // Asegúrate de importar el componente correctamente
+import UserProfile from './components/UserProfile';
 
 // Crea un tema con una paleta definida
 const theme = createTheme({
@@ -57,6 +57,8 @@ function App() {
           <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
           <Route path="/verify" element={<Verification />} />
           <Route path="/verify" element={<VerifyLink />} />
+          <Route path="/profile" element={<UserProfile />} />
+
 
 
         </Routes>

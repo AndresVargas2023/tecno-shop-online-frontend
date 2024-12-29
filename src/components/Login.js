@@ -13,19 +13,21 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post(`${API_URL}/auth/login`, { email, password }); // Usar la variable de entorno
-      const { token, role } = response.data;
-
+      const { token, role, userId } = response.data; // Asumiendo que userId es parte de la respuesta
+  
+      // Guardar en el localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('userRole', role);
       localStorage.setItem('userName', response.data.name); // Corregido
       localStorage.setItem('userSurname', response.data.surname); // Corregido
-
+      localStorage.setItem('userId', userId); // Guardar el userId en el localStorage
+  
       // Emitir evento personalizado para notificar cambios de autenticación
       window.dispatchEvent(new Event('authChange'));
-
+  
       // Redirección basada en el rol
       if (role === 'admin' || role === 'moderator') {
         navigate('/admin'); // Redirigir a la página de administrador
@@ -37,7 +39,7 @@ function Login() {
       console.error("Error al iniciar sesión:", err); // Para depurar
     }
   };
-
+  
   const handleRegister = () => {
     navigate('/register');
   };
