@@ -13,14 +13,25 @@ const VerifyLink = () => {
       try {
         // Usando la variable de entorno REACT_APP_API_URL
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/verify-link/${token}`);
+        
         setMessage(response.data.message);
         setError("");
-        setTimeout(() => navigate(`/reset-password/${token}`), 2000); // Redirige a la vista de restablecimiento
+
+        // Redirigir a la vista de restablecimiento después de un breve retraso
+        setTimeout(() => navigate(`/reset-password/${token}`), 2000);
       } catch (err) {
-        setError(err.response?.data?.message || "Token inválido o expirado.");
+        // Manejo de error si el token es inválido o ha expirado
+        const errorMessage = err.response?.data?.message || "Token inválido o expirado.";
+        setError(errorMessage);
         setMessage("");
+
+        // Redirige al login si el token es inválido o ha expirado
+        if (errorMessage.includes("expirado") || errorMessage.includes("inválido")) {
+          setTimeout(() => navigate("/login"), 3000); // Redirige al login después de 3 segundos
+        }
       }
     };
+
     verifyToken();
   }, [token, navigate]);
 
