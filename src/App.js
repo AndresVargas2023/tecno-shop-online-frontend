@@ -1,74 +1,73 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles'; // Importa ThemeProvider y createTheme
-import Navbar from './components/Navbar'; // Asegúrate de importar el Navbar
-import HomePage from './HomePage';
-import Admin from './administracion/admin'; // Importa el componente de administración
-import Login from './components/Login';   // Importa tu Login
-import PrivateRoute from './routes/PrivateRoute'; // Importa PrivateRoute desde 'routes'
-import Register from './components/Register';  // Agregar la ruta para registro
-import ProductForm from './components/ProductForm'; // Importa el formulario para agregar/editar productos
-import ProductList from './administracion/ProductList';  // Componente para listar productos
-import ProductListCustomer from './components/ProductListCustomer';  // Componente para listar productos
-import AllProductsPage from './components/ProductListCustomer';  // Componente para listar productos
-import Layout from './components/Layout';
-import AdminUsers from './administracion/AdminUsers';  // Importar el componente AdminUsers
-import EditUser from './administracion/EditUser';  // Importar el componente de edición
-import ForgotPassword from './components/ForgotPassword';
-import VerifyLink from './components/VerifyLink';  // Asegúrate de importar el componente correctamente
-import UserProfile from './components/UserProfile';
-import RequestPasswordReset from "./components/RequestPasswordReset";
-import VerifyLinkReset from "./components/VerifyLinkReset";
-import ResetPassword from "./components/ResetPassword";
+import Navbar from './components/Navbar'; // Componente de la barra de navegación
+import HomePage from './HomePage'; // Página principal
+import Admin from './administracion/admin'; // Componente de administración
+import Login from './components/Login'; // Componente de inicio de sesión
+import PrivateRoute from './routes/PrivateRoute'; // Ruta protegida para usuarios autorizados
+import Register from './components/Register'; // Componente de registro
+import ProductForm from './components/ProductForm'; // Formulario para agregar/editar productos
+import ProductList from './administracion/ProductList'; // Componente para listar productos (administrador)
+import ProductListCustomer from './components/ProductListCustomer'; // Componente para listar productos (clientes)
+import AllProductsPage from './components/ProductListCustomer'; // Página para listar todos los productos
+import Layout from './components/Layout'; // Diseño base para la aplicación
+import AdminUsers from './administracion/AdminUsers'; // Gestión de usuarios (administrador)
+import EditUser from './administracion/EditUser'; // Edición de usuarios
+import VerifyLink from './components/VerifyLink'; // Componente para verificar enlaces de correo electrónico
+import UserProfile from './components/UserProfile'; // Perfil del usuario
+import RequestPasswordReset from "./components/RequestPasswordReset"; // Solicitud de restablecimiento de contraseña
+import ResetPassword from "./components/ResetPassword"; // Restablecimiento de contraseña
 
-// Crea un tema con una paleta definida
+// Crea un tema personalizado para la aplicación
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',  // Puedes personalizar los colores del tema
+      main: '#1976d2', // Color principal
     },
     secondary: {
-      main: '#9c27b0',
+      main: '#9c27b0', // Color secundario
     },
   },
 });
 
 function App() {
   return (
-    // Envuelve tu aplicación con ThemeProvider para que todos los componentes puedan acceder al tema
+    // Envuelve la aplicación con ThemeProvider para aplicar el tema
     <ThemeProvider theme={theme}>
       <Router>
+        {/* Barra de navegación presente en toda la aplicación */}
         <Navbar /> 
 
         <Routes>
+          {/* Ruta principal */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/Login" element={<Login />} />  {/* Ruta al Login */}
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/products/:category" element={<ProductListCustomer />} /> {/* Ruta para productos por categoría */}
-          <Route path="/products" element={<ProductListCustomer />} />
+          {/* Ruta para el inicio de sesión */}
+          <Route path="/Login" element={<Login />} />
+          {/* Ruta para mostrar productos por categoría o todos los productos */}
+          <Route path="/products/:category" element={<ProductListCustomer />} />
           <Route path="/products" element={<AllProductsPage />} />
-          <Route 
-            path="/admin" 
-            element={<PrivateRoute element={<Admin />} />} 
-          />
-          <Route path="/admin/users" element={<AdminUsers />} /> {/* Nueva ruta */}
+          {/* Rutas protegidas para el administrador */}
+          <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-          <Route path="/admin/products" element={<ProductList />} /> {/* Ruta para ver la lista de productos */}
-          <Route path="/admin/products/add" element={<ProductForm />} /> {/* Ruta para agregar productos */}
+          <Route path="/admin/products" element={<ProductList />} />
+          <Route path="/admin/products/add" element={<ProductForm />} />
+          {/* Ruta para editar productos */}
           <Route path="/edit-product/:id" element={<ProductForm />} />
-          <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
+          {/* Ruta para el registro de nuevos usuarios */}
+          <Route path="/register" element={<Register />} />
+          {/* Ruta para verificar enlaces de correo electrónico */}
           <Route path="/verify/:email" element={<VerifyLink />} />
+          {/* Ruta para el perfil del usuario */}
           <Route path="/profile" element={<UserProfile />} />
-
+          {/* Rutas para restablecimiento de contraseña */}
           <Route path="/request-password-reset" element={<RequestPasswordReset />} />
-        <Route path="/verify-link/:token" element={<VerifyLinkReset />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-
-
-
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
 
-        <Layout /> 
+        {/* Diseño base para elementos comunes */}
+        <Layout />
       </Router>
     </ThemeProvider>
   );
