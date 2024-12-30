@@ -73,7 +73,7 @@ function Login() {
         </form>
         {error && <p className="error-message">{error}</p>}
         <div className="forgot-link-container">
-          <Link to="/forgot-password" className="forgot-link">
+          <Link to="/request-password-reset" className="forgot-link">
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
