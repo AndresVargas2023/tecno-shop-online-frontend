@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { TextField, Button, CircularProgress, Typography } from '@mui/material';
 import './components.css';
 
 function Register() {
@@ -100,81 +101,111 @@ function Register() {
 
   return (
     <div className="register-container">
-      <h2 className="register-title">Crear Usuario</h2>
+      <Typography variant="h4" className="register-title">Crear Usuario</Typography>
       {isRegistered ? (
         <div className="verification-form">
-          <h3 className="verification-message">Se ha enviado un correo con el código de verificación, por favor verifica tu correo.</h3>
+          <Typography variant="h6" className="verification-message">
+            Se ha enviado un correo con el código de verificación, por favor verifica tu correo.
+          </Typography>
           <form onSubmit={handleVerify} className="form-verify">
-            <input
+            <TextField
               className="input-field"
               type="text"
-              placeholder="Código de verificación"
+              label="Código de verificación"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
               required
+              fullWidth
+              margin="normal"
             />
-            <button type="submit" className="submit-button" disabled={isVerifying}>
-              {isVerifying ? 'Verificando...' : 'Verificar Código'}
-            </button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isVerifying}
+              fullWidth
+            >
+              {isVerifying ? <CircularProgress size={24} /> : 'Verificar Código'}
+            </Button>
           </form>
         </div>
       ) : (
         <form onSubmit={handleRegister} className="register-form">
-          <input
+          <TextField
             className="input-field"
-            type="text"
-            placeholder="Nombre"
+            label="Nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <input
+          <TextField
             className="input-field"
-            type="text"
-            placeholder="Apellido"
+            label="Apellido"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <input
+          <TextField
             className="input-field"
-            type="email"
-            placeholder="Correo electrónico"
+            label="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <input
+          <TextField
             className="input-field"
+            label="Contraseña"
             type="password"
-            placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <input
+          <TextField
             className="input-field"
+            label="Confirmar Contraseña"
             type="password"
-            placeholder="Confirmar Contraseña"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <input
+          <TextField
             className="input-field"
-            type="text"
-            placeholder="Dirección"
+            label="Dirección"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
+            fullWidth
+            margin="normal"
           />
-          <button type="submit" className="submit-button" disabled={isLoading}>
-            {isLoading ? 'Procesando...' : 'Crear Usuario'}
-          </button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isLoading}
+            fullWidth
+          >
+            {isLoading ? <CircularProgress size={24} /> : 'Crear Usuario'}
+          </Button>
         </form>
       )}
 
-      {error && <p className="error-message">{error}</p>}
+      {(isLoading || isVerifying) && (
+        <Typography variant="body1" color="textSecondary" className="loading-message">
+          Por favor, espere, esto puede tardar un momento...
+        </Typography>
+      )}
+
+      {error && <Typography variant="body2" color="error" className="error-message">{error}</Typography>}
     </div>
   );
 }

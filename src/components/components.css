@@ -349,3 +349,15 @@ h2 {
   color: #0056b3;  /* Color más oscuro cuando se pasa el mouse */
   text-decoration: none;  /* Quita el subrayado al pasar el mouse */
 }
+
+
+.loading-message {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+  margin-top: 15px;
+}
