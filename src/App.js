@@ -4,20 +4,20 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'; // Importa Th
 import Navbar from './components/Navbar'; // Componente de la barra de navegación
 import HomePage from './HomePage'; // Página principal
 import Admin from './administracion/admin'; // Componente de administración
-import Login from './components/Login'; // Componente de inicio de sesión
+import Login from './components/LoginForgotRegister/Login'; // Componente de inicio de sesión
 import PrivateRoute from './routes/PrivateRoute'; // Ruta protegida para usuarios autorizados
-import Register from './components/Register'; // Componente de registro
-import ProductForm from './components/ProductForm'; // Formulario para agregar/editar productos
+import Register from './components/LoginForgotRegister/Register'; // Componente de registro
+import ProductForm from './components/products/ProductForm'; // Formulario para agregar/editar productos
 import ProductList from './administracion/ProductList'; // Componente para listar productos (administrador)
-import ProductListCustomer from './components/ProductListCustomer'; // Componente para listar productos (clientes)
-import AllProductsPage from './components/ProductListCustomer'; // Página para listar todos los productos
+import ProductListCustomer from './components/products/ProductListCustomer'; // Componente para listar productos (clientes)
+import AllProductsPage from './components/products/ProductListCustomer'; // Página para listar todos los productos
 import Layout from './components/Layout'; // Diseño base para la aplicación
 import AdminUsers from './administracion/AdminUsers'; // Gestión de usuarios (administrador)
 import EditUser from './administracion/EditUser'; // Edición de usuarios
-import VerifyLink from './components/VerifyLink'; // Componente para verificar enlaces de correo electrónico
-import UserProfile from './components/UserProfile'; // Perfil del usuario
-import RequestPasswordReset from "./components/RequestPasswordReset"; // Solicitud de restablecimiento de contraseña
-import ResetPassword from "./components/ResetPassword"; // Restablecimiento de contraseña
+import VerifyLink from './components/LoginForgotRegister/VerifyLink'; // Componente para verificar enlaces de correo electrónico
+import UserProfile from './components/LoginForgotRegister/UserProfile'; // Perfil del usuario
+import RequestPasswordReset from "./components/LoginForgotRegister/RequestPasswordReset"; // Solicitud de restablecimiento de contraseña
+import ResetPassword from "./components/LoginForgotRegister/ResetPassword"; // Restablecimiento de contraseña
 import About from './components/About';
 import Contact from './components/Contact';  
 

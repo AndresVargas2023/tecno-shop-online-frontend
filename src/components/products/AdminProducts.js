@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProductForm from '../components/ProductForm';  // Importar el formulario
+import ProductForm from './ProductForm';  // Importar el formulario
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
