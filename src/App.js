@@ -18,6 +18,8 @@ import VerifyLink from './components/VerifyLink'; // Componente para verificar e
 import UserProfile from './components/UserProfile'; // Perfil del usuario
 import RequestPasswordReset from "./components/RequestPasswordReset"; // Solicitud de restablecimiento de contraseña
 import ResetPassword from "./components/ResetPassword"; // Restablecimiento de contraseña
+import About from './components/About';
+import Contact from './components/Contact';  
 
 // Crea un tema personalizado para la aplicación
 const theme = createTheme({
@@ -53,6 +55,7 @@ function App() {
           <Route path="/admin/users/edit/:userId" element={<EditUser />} />
           <Route path="/admin/products" element={<ProductList />} />
           <Route path="/admin/products/add" element={<ProductForm />} />
+          
           {/* Ruta para editar productos */}
           <Route path="/edit-product/:id" element={<ProductForm />} />
           {/* Ruta para el registro de nuevos usuarios */}
@@ -64,6 +67,9 @@ function App() {
           {/* Rutas para restablecimiento de contraseña */}
           <Route path="/request-password-reset" element={<RequestPasswordReset />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+
         </Routes>
 
         {/* Diseño base para elementos comunes */}
