@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
@@ -10,11 +10,11 @@ import {
   Button,
   IconButton,
   Chip,
+  TextField,
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Search from '@mui/icons-material/Search';
-import TextField from '@mui/material/TextField';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney'; // Importamos el ícono de billete
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function ProductListCustomer() {
   const { category } = useParams();
@@ -56,6 +56,33 @@ function ProductListCustomer() {
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
+
+  const handleAddToCart = (product) => {
+    let storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    // Buscar si el producto ya existe en el carrito
+    const productIndex = storedCart.findIndex(item => item.productId === product._id);
+
+    if (productIndex === -1) {
+      storedCart.push({
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.image, // Agregamos la URL de la imagen
+        quantity: 1,
+      });
+    } else {
+      storedCart[productIndex].quantity += 1;
+    }
+    
+    // Guardar el carrito actualizado en localStorage
+    localStorage.setItem('cart', JSON.stringify(storedCart));
+    
+  
+    // Emitir un evento para que el Navbar se actualice sin recargar la página
+    window.dispatchEvent(new Event('storage'));
+  };
+  
 
   return (
     <div style={{ padding: '20px' }}>
@@ -119,12 +146,18 @@ function ProductListCustomer() {
                     />
                     <IconButton
                       color="primary"
-                      style={{ transition: 'color 0.3s ease' }}
+                      style={{
+                        transition: 'color 0.3s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '8px',
+                      }}
                       onMouseEnter={(e) => (e.target.style.color = 'green')}
                       onMouseLeave={(e) => (e.target.style.color = '')}
-                      onClick={() => console.log('Agregar al carrito', product._id)}
+                      onClick={() => handleAddToCart(product)}
                     >
-                      <ShoppingCartIcon />
+                      <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Añadir al carrito</span>
+                      <ShoppingCartIcon style={{ marginRight: '5px', fontSize: '20px' }} />
                     </IconButton>
                   </div>
                 </CardContent>

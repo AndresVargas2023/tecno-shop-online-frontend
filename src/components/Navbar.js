@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Button, IconButton, Drawer, List, ListItem, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Box, Badge } from '@mui/material';
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
-import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-// Estilos responsivos utilizando sx de Material UI
 const LogoContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
-  flexGrow: 1,
+  flexGrow: 0,
+  marginRight: '1rem',
 });
 
 const LogoImage = styled('img')({
   height: 50,
-  marginRight: 10,
   '@media (max-width: 600px)': {
     height: 40,
   },
 });
 
-const UserBox = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
+const NavButton = styled(Button)(({ theme }) => ({
   color: 'white',
-  justifyContent: 'center',
-  flexGrow: 1,
-});
+  margin: '0 10px',
+  textTransform: 'none',
+  '@media (max-width: 600px)': {
+    fontSize: '0.8rem',
+  },
+}));
 
 const LogoutButton = styled(Button)(({ theme }) => ({
   backgroundColor: '#ff5722',
@@ -52,36 +51,13 @@ const LoginButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const DrawerList = styled(List)(({ theme }) => ({
-  width: 250,
-  backgroundColor: theme.palette.primary.main,
-  '@media (max-width: 600px)': {
-    width: '100%',
-  },
-}));
-
-const DrawerLink = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '10px 20px',
-  color: 'white',
-  textDecoration: 'none',
-  '&:hover': {
-    backgroundColor: '#333',
-    textDecoration: 'none',
-  },
-  '& svg': {
-    marginRight: '10px',
-  },
-});
-
 function Navbar() {
   const navigate = useNavigate();
   const [role, setRole] = useState(localStorage.getItem('userRole'));
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState(localStorage.getItem('userName'));
   const [userSurname, setUserSurname] = useState(localStorage.getItem('userSurname'));
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const handleAuthChange = () => {
@@ -103,6 +79,24 @@ function Navbar() {
     };
   }, []);
 
+  // Escuchar los cambios en el carrito
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartQuantity = storedCart.reduce((total, product) => total + product.quantity, 0);
+      setCartCount(cartQuantity);
+    };
+
+    window.addEventListener('storage', handleCartUpdate);
+
+    // Obtener la cantidad inicial del carrito
+    handleCartUpdate();
+
+    return () => {
+      window.removeEventListener('storage', handleCartUpdate);
+    };
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('userRole');
     localStorage.removeItem('token');
@@ -113,74 +107,49 @@ function Navbar() {
     setUserName(null);
     setUserSurname(null);
     navigate('/login');
-
     window.dispatchEvent(new Event('authChange'));
-  };
-
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
   };
 
   return (
     <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)' }}>
       <Toolbar>
-        {/* Botón para retroceder */}
         <IconButton edge="start" color="inherit" aria-label="back" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
           <ArrowBackIcon />
         </IconButton>
 
-        {/* Botón para abrir el menú */}
-        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={toggleDrawer}>
-          <MenuIcon />
-        </IconButton>
-
         <LogoContainer>
           <LogoImage src={logo} alt="Logo" />
+          <NavButton component={Link} to="/">
+            Inicio
+          </NavButton>
+          {isAuthenticated && (
+            <NavButton component={Link} to="/profile">
+              Ver mi perfil
+            </NavButton>
+          )}
+                      {(role === 'admin' || role === 'moderator') && (
+                <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
+                 Administrar
+                </Link>
+            )}
         </LogoContainer>
 
-        <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-          <DrawerList>
-            <ListItem button onClick={toggleDrawer}>
-              <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
-                <DrawerLink>
-                  <HomeIcon sx={{ mr: 2 }} />
-                  Inicio
-                </DrawerLink>
-              </Link>
-            </ListItem>
-            {isAuthenticated && (
-              <ListItem button onClick={toggleDrawer}>
-                <Link to="/profile" style={{ color: 'white', textDecoration: 'none' }}>
-                  <DrawerLink>Ver mi perfil</DrawerLink>
-                </Link>
-              </ListItem>
-            )}
-            {(role === 'admin' || role === 'moderator') && (
-              <ListItem button onClick={toggleDrawer}>
-                <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
-                  <DrawerLink>Administrar</DrawerLink>
-                </Link>
-              </ListItem>
-            )}
-          </DrawerList>
-        </Drawer>
+        <Box sx={{ flexGrow: 2 }} />
 
-        <UserBox>
-          {isAuthenticated && (
-            <span style={{ color: 'white', marginRight: '1rem' }}>
-              Hola, {userName} {userSurname}
-            </span>
-          )}
-        </UserBox>
+        <IconButton color="inherit" component={Link} to="/cart" sx={{ marginRight: '20px' }}>
+          <Badge badgeContent={cartCount} color="error" overlap="rectangular">
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
 
         {isAuthenticated ? (
           <LogoutButton onClick={handleLogout} variant="contained">
             Cerrar sesión 🚪
           </LogoutButton>
         ) : (
-          <Link to="/login">
-            <LoginButton variant="contained">Iniciar sesión</LoginButton>
-          </Link>
+          <LoginButton component={Link} to="/login" variant="contained">
+            Iniciar sesión
+          </LoginButton>
         )}
       </Toolbar>
     </AppBar>

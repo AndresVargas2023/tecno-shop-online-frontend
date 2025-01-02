@@ -11,6 +11,8 @@ import ProductForm from './components/products/ProductForm'; // Formulario para 
 import ProductList from './administracion/ProductList'; // Componente para listar productos (administrador)
 import ProductListCustomer from './components/products/ProductListCustomer'; // Componente para listar productos (clientes)
 import AllProductsPage from './components/products/ProductListCustomer'; // Página para listar todos los productos
+import CartPage from './components/products/CartPage'; // Importar el componente de carrito
+import CheckoutPage from './components/products/CheckoutPage'; // Si tienes una página de checkout
 import Layout from './components/Layout'; // Diseño base para la aplicación
 import AdminUsers from './administracion/AdminUsers'; // Gestión de usuarios (administrador)
 import EditUser from './administracion/EditUser'; // Edición de usuarios
@@ -48,6 +50,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           {/* Ruta para mostrar productos por categoría o todos los productos */}
           <Route path="/products/:category" element={<ProductListCustomer />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/products" element={<AllProductsPage />} />
           {/* Rutas protegidas para el administrador */}
           <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
