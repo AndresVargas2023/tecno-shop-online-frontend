@@ -27,11 +27,12 @@ const LogoContainer = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row',
+  margin:0
 });
 
 const LogoImage = styled('img')({
   height: 50,
-  marginLeft: '2px',
+  marginLeft: '1px',
   '@media (max-width: 100px)': {
     height: 30,
   },
@@ -105,10 +106,9 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', padding: '10px' }}>
+    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', padding: '5px' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        {/* Cápsula 1 (10%) */}
-        <Capsule sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <Capsule sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
   <LogoContainer>
     <LogoImage src={logo} alt="Logo" />
   </LogoContainer>
@@ -118,8 +118,9 @@ function Navbar() {
 </Capsule>
 
 
+
         {/* Cápsula 2 (resto del espacio) */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', flex: 30 }}>
           {/* Cápsula 2.1 - Mostrar "Hola" solo si está autenticado */}
           {isAuthenticated && (
             <Capsule sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
