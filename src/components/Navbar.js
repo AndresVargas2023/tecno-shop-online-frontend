@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Button, IconButton, Box, Badge } from '@mui/material';
+import { AppBar, Toolbar, Button, IconButton, Box, Badge, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -26,6 +26,7 @@ const NavButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
   '@media (max-width: 600px)': {
     fontSize: '0.8rem',
+    padding: '6px 10px',
   },
 }));
 
@@ -37,6 +38,7 @@ const LogoutButton = styled(Button)(({ theme }) => ({
   },
   '@media (max-width: 600px)': {
     fontSize: '0.8rem',
+    padding: '6px 10px',
   },
 }));
 
@@ -48,6 +50,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
   },
   '@media (max-width: 600px)': {
     fontSize: '0.8rem',
+    padding: '6px 10px',
   },
 }));
 
@@ -127,30 +130,32 @@ function Navbar() {
               Ver mi perfil
             </NavButton>
           )}
-                      {(role === 'admin' || role === 'moderator') && (
-                <Link to="/admin" style={{ color: 'white', textDecoration: 'none' }}>
-                 Administrar
-                </Link>
-            )}
+          {(role === 'admin' || role === 'moderator') && (
+            <NavButton component={Link} to="/admin">
+              Administrar
+            </NavButton>
+          )}
         </LogoContainer>
 
-        <Box sx={{ flexGrow: 2 }} />
+        <Box sx={{ flexGrow: 1 }} />
 
-        <IconButton color="inherit" component={Link} to="/cart" sx={{ marginRight: '20px' }}>
-          <Badge badgeContent={cartCount} color="error" overlap="rectangular">
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
+        <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+          <IconButton color="inherit" component={Link} to="/cart" sx={{ marginRight: '20px' }}>
+            <Badge badgeContent={cartCount} color="error" overlap="rectangular">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
 
-        {isAuthenticated ? (
-          <LogoutButton onClick={handleLogout} variant="contained">
-            Cerrar sesión 🚪
-          </LogoutButton>
-        ) : (
-          <LoginButton component={Link} to="/login" variant="contained">
-            Iniciar sesión
-          </LoginButton>
-        )}
+          {isAuthenticated ? (
+            <LogoutButton onClick={handleLogout} variant="contained">
+              Cerrar sesión 🚪
+            </LogoutButton>
+          ) : (
+            <LoginButton component={Link} to="/login" variant="contained">
+              Iniciar sesión
+            </LoginButton>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );

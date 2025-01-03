@@ -8,7 +8,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 function Layout() {
   return (
-    <Box display="flex" flexDirection="column" minHeight="100vh">
+    <Box display="flex" flexDirection="column" minHeight="60vh">
       <Box component="main" flexGrow={1}>
         <Container maxWidth="lg" sx={{ py: 4 }}>
           <Outlet />

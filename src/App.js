@@ -53,15 +53,15 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/products" element={<AllProductsPage />} />
+          
           {/* Rutas protegidas para el administrador */}
           <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-          <Route path="/admin/products" element={<ProductList />} />
-          <Route path="/admin/products/add" element={<ProductForm />} />
+          <Route path="/admin/users" element={<PrivateRoute element={<AdminUsers />} />} />
+          <Route path="/admin/users/edit/:userId" element={<PrivateRoute element={<EditUser />} />} />
+          <Route path="/admin/products" element={<PrivateRoute element={<ProductList />} />} />
+          <Route path="/admin/products/add" element={<PrivateRoute element={<ProductForm />} />} />
+          <Route path="/edit-product/:id" element={<PrivateRoute element={<ProductForm />} />} />
           
-          {/* Ruta para editar productos */}
-          <Route path="/edit-product/:id" element={<ProductForm />} />
           {/* Ruta para el registro de nuevos usuarios */}
           <Route path="/register" element={<Register />} />
           {/* Ruta para verificar enlaces de correo electrónico */}

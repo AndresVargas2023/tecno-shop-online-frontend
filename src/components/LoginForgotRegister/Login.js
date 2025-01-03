@@ -13,33 +13,45 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password }); // Usar la variable de entorno
-      const { token, role, userId } = response.data; // Asumiendo que userId es parte de la respuesta
-  
-      // Guardar en el localStorage
+      // Realizar la solicitud de inicio de sesión
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      const { token, user } = response.data; // Asegúrate de que el backend esté enviando el objeto `user` con todos los datos
+
+      // Guardar todos los datos en localStorage
       localStorage.setItem('token', token);
-      localStorage.setItem('userRole', role);
-      localStorage.setItem('userName', response.data.name); // Corregido
-      localStorage.setItem('userSurname', response.data.surname); // Corregido
-      localStorage.setItem('userId', userId); // Guardar el userId en el localStorage
-  
+      localStorage.setItem('userRole', user.role);
+      localStorage.setItem('userName', user.name);
+      localStorage.setItem('userSurname', user.surname);
+      localStorage.setItem('userEmail', user.email);
+      localStorage.setItem('userId', user.userId);
+      localStorage.setItem('userAddress', user.address);
+      localStorage.setItem('userDpt', user.dpt);
+      localStorage.setItem('userCity', user.city);
+      localStorage.setItem('userBarrio', user.barrio);
+      localStorage.setItem('userPhoneNumber', user.phoneNumber);
+
       // Emitir evento personalizado para notificar cambios de autenticación
       window.dispatchEvent(new Event('authChange'));
-  
+
       // Redirección basada en el rol
-      if (role === 'admin' || role === 'moderator') {
+      if (user.role === 'admin' || user.role === 'moderator') {
         navigate('/admin'); // Redirigir a la página de administrador
       } else {
         navigate('/'); // Otra ruta para usuarios normales
       }
     } catch (err) {
-      setError('Credenciales incorrectas');
+      // Mostrar el mensaje de error dependiendo de la respuesta
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || 'Error al iniciar sesión');
+      } else {
+        setError('Error al iniciar sesión');
+      }
       console.error("Error al iniciar sesión:", err); // Para depurar
     }
   };
-  
+
   const handleRegister = () => {
     navigate('/register');
   };
@@ -71,7 +83,7 @@ function Login() {
           </div>
           <button type="submit" className="submit-button">Iniciar sesión</button>
         </form>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">{error}</p>} {/* Mostrar el mensaje de error */}
         <div className="forgot-link-container">
           <Link to="/request-password-reset" className="forgot-link">
             ¿Olvidaste tu contraseña?
