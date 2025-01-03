@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  IconButton,
-  Box,
-  Badge,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Box, Badge, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -20,80 +11,31 @@ import HomeIcon from '@mui/icons-material/Home';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
 
-const LogoContainer = styled('div')({
+const Capsule = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  flexGrow: 0,
-  marginRight: '1rem',
-  flexWrap: 'nowrap',
-  justifyContent: 'flex-start',
+  flexDirection: 'column',
+  padding: '2px',
+  backgroundColor: 'sky',
+  margin: '2px',
+});
+
+const LogoContainer = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
 });
 
 const LogoImage = styled('img')({
-  height: 60,
-  '@media (max-width: 600px)': {
-    height: 50,
-  },
+  height: 50,
+  marginLeft: '10px',
 });
 
-const NavButton = styled(Button)(({ theme }) => ({
-  color: 'white',
-  margin: '0 15px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: '#1565c0',
-  },
-  '@media (max-width: 600px)': {
-    fontSize: '0.9rem',
-    padding: '8px 12px',
-  },
-}));
-
-const LogoutButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#ff5722',
-  color: 'white',
-  '&:hover': {
-    backgroundColor: '#e64a19',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
-  },
-  fontSize: '1rem',
-  padding: '8px 16px',
-  '@media (max-width: 600px)': {
-    fontSize: '0.9rem',
-    padding: '6px 12px',
-  },
-}));
-
-const LoginButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#1976d2',
-  color: 'white',
-  '&:hover': {
-    backgroundColor: '#1565c0',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
-  },
-  fontSize: '1rem',
-  padding: '8px 16px',
-  '@media (max-width: 600px)': {
-    fontSize: '0.9rem',
-    padding: '6px 12px',
-  },
-}));
-
-const UserGreeting = styled(Typography)(({ theme }) => ({
-  color: 'white',
-  fontWeight: 'bold',
-  marginRight: '1rem',
-  '@media (max-width: 600px)': {
-    fontSize: '0.9rem',
-  },
-}));
-
-const CartContainer = styled(Box)({
+const IconLabelContainer = styled(Box)({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
-  marginRight: '20px',
 });
-
 function Navbar() {
   const navigate = useNavigate();
   const [role, setRole] = useState(localStorage.getItem('userRole'));
@@ -153,63 +95,86 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)' }}>
-      <Toolbar>
-        <Box sx={{ display: 'flex', alignItems: 'center', flex: '4' }}>
-          <IconButton edge="start" color="inherit" aria-label="back" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
-            <ArrowBackIcon />
-          </IconButton>
-
+    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', padding: '10px' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        {/* Cápsula 1 (30%) */}
+        <Capsule sx={{ flex: '0 0 10%' }}>
           <LogoContainer>
-            <Tooltip title="Inicio">
-              <IconButton component={Link} to="/">
+            <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
+              <ArrowBackIcon />
+            </IconButton>
+            <LogoImage src={logo} alt="Logo" />
+          </LogoContainer>
+        </Capsule>
+
+        {/* Cápsula 2 (resto del espacio) */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+          {/* Cápsula 2.1 - Mostrar "Hola" solo si está autenticado */}
+          {isAuthenticated && (
+            <Capsule sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+              <Typography variant="body1">
+                Hola, {userName} {userSurname}
+              </Typography>
+            </Capsule>
+          )}
+
+          {/* Cápsula 2.2 - Distribución equitativa */}
+          <Capsule sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+            <IconLabelContainer sx={{ flex: 1 }}>
+              <IconButton color="inherit" component={Link} to="/">
                 <HomeIcon />
               </IconButton>
-            </Tooltip>
+              <Typography variant="caption">Inicio</Typography>
+            </IconLabelContainer>
+
+            {/* Mostrar "Mi Perfil" solo si está autenticado */}
             {isAuthenticated && (
-              <>
-                <UserGreeting variant="body1">
-                  Hola, {userName} {userSurname}
-                </UserGreeting>
-                <Tooltip title="Mi Perfil">
-                  <IconButton component={Link} to="/profile">
-                    <PersonIcon />
-                  </IconButton>
-                </Tooltip>
-              </>
+              <IconLabelContainer sx={{ flex: 1 }}>
+                <IconButton color="inherit" component={Link} to="/profile">
+                  <PersonIcon />
+                </IconButton>
+                <Typography variant="caption">Mi Perfil</Typography>
+              </IconLabelContainer>
             )}
-            {(role === 'admin' || role === 'moderator') && (
-              <Tooltip title="Administrar">
-                <IconButton component={Link} to="/admin">
+
+            {/* Mostrar "Administrar" solo si el rol es admin o moderator */}
+            {(role === 'admin' || role === 'moderator') && isAuthenticated && (
+              <IconLabelContainer sx={{ flex: 1 }}>
+                <IconButton color="inherit" component={Link} to="/admin">
                   <AdminPanelSettingsIcon />
                 </IconButton>
-              </Tooltip>
+                <Typography variant="caption">Administrar</Typography>
+              </IconLabelContainer>
             )}
-          </LogoContainer>
-        </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', flex: '1' }}>
-          <CartContainer>
-            <Tooltip title="Carrito">
+            <IconLabelContainer sx={{ flex: 1 }}>
               <IconButton color="inherit" component={Link} to="/cart">
-                <Badge badgeContent={cartCount} color="error" overlap="rectangular">
+                <Badge badgeContent={cartCount} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-            </Tooltip>
-          </CartContainer>
+              <Typography variant="caption">Carrito</Typography>
+            </IconLabelContainer>
 
-          {isAuthenticated ? (
-            <Tooltip title="Cerrar sesión">
-              <LogoutButton onClick={handleLogout} variant="contained" startIcon={<ExitToAppIcon />}>
-              </LogoutButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Iniciar sesión">
-              <LoginButton component={Link} to="/login" variant="contained" startIcon={<LoginIcon />}>
-              </LoginButton>
-            </Tooltip>
-          )}
+          {/* Mostrar "Iniciar sesión" o "Cerrar sesión" dependiendo de la autenticación */}
+<IconLabelContainer sx={{ flex: 1 }}>
+  <IconButton
+    color="inherit"
+    component={Link}
+    to={isAuthenticated ? '/' : '/login'}
+    onClick={isAuthenticated ? handleLogout : null}
+    sx={{
+      color: isAuthenticated ? 'red' : 'green', // Rojo si autenticado, verde si no
+    }}
+  >
+    {isAuthenticated ? <ExitToAppIcon /> : <LoginIcon />}
+  </IconButton>
+  <Typography variant="caption" sx={{ marginTop: '4px' }}>
+    {isAuthenticated ? 'Cerrar sesión' : 'Iniciar sesión'}
+  </Typography>
+</IconLabelContainer>
+
+          </Capsule>
         </Box>
       </Toolbar>
     </AppBar>
