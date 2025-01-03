@@ -17,7 +17,7 @@ const Capsule = styled(Box)({
   flexDirection: 'column',
   padding: '2px',
   backgroundColor: 'sky',
-  margin: '2px',
+  margin: '1px',
   '@media (max-width: 500px)': {
     padding: '0px',
   },
@@ -32,8 +32,8 @@ const LogoContainer = styled(Box)({
 const LogoImage = styled('img')({
   height: 50,
   marginLeft: '2px',
-  '@media (max-width: 200px)': {
-    height: 40,
+  '@media (max-width: 100px)': {
+    height: 30,
   },
 });
 
