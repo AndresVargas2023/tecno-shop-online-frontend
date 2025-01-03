@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Button, IconButton, Box, Badge, Typography } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  IconButton,
+  Box,
+  Badge,
+  Typography,
+  Tooltip,
+} from '@mui/material';
 import { styled } from '@mui/system';
 import logo from '../assets/images/TecnoShopOnline-Logo.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import HomeIcon from '@mui/icons-material/Home'; // Icono de Inicio
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'; // Icono Administrar
-import PersonIcon from '@mui/icons-material/Person'; // Icono Mi Perfil
+import HomeIcon from '@mui/icons-material/Home';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import PersonIcon from '@mui/icons-material/Person';
 
 const LogoContainer = styled('div')({
   display: 'flex',
@@ -129,7 +138,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('cart'); // Elimina los datos del carrito
+    localStorage.removeItem('cart');
     localStorage.removeItem('userRole');
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
@@ -141,11 +150,10 @@ function Navbar() {
     navigate('/login');
     window.dispatchEvent(new Event('authChange'));
     window.dispatchEvent(new Event('storage'));
-
   };
 
   return (
-    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', display: 'flex', justifyContent: 'space-around', flexWrap: 'nowrap' }}>
+    <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)' }}>
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flex: '4' }}>
           <IconButton edge="start" color="inherit" aria-label="back" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
@@ -153,45 +161,54 @@ function Navbar() {
           </IconButton>
 
           <LogoContainer>
-            <LogoImage src={logo} alt="Logo" />
-            <NavButton component={Link} to="/">
-              <HomeIcon />
-            </NavButton>
+            <Tooltip title="Inicio">
+              <IconButton component={Link} to="/">
+                <HomeIcon />
+              </IconButton>
+            </Tooltip>
             {isAuthenticated && (
               <>
                 <UserGreeting variant="body1">
                   Hola, {userName} {userSurname}
                 </UserGreeting>
-                <NavButton component={Link} to="/profile" startIcon={<PersonIcon />}>
-                  Mi Perfil
-                </NavButton>
+                <Tooltip title="Mi Perfil">
+                  <IconButton component={Link} to="/profile">
+                    <PersonIcon />
+                  </IconButton>
+                </Tooltip>
               </>
             )}
             {(role === 'admin' || role === 'moderator') && (
-              <NavButton component={Link} to="/admin" startIcon={<AdminPanelSettingsIcon />}>
-                Administrar
-              </NavButton>
+              <Tooltip title="Administrar">
+                <IconButton component={Link} to="/admin">
+                  <AdminPanelSettingsIcon />
+                </IconButton>
+              </Tooltip>
             )}
           </LogoContainer>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', flex: '1'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flex: '1' }}>
           <CartContainer>
-            <IconButton color="inherit" component={Link} to="/cart">
-              <Badge badgeContent={cartCount} color="error" overlap="rectangular">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
+            <Tooltip title="Carrito">
+              <IconButton color="inherit" component={Link} to="/cart">
+                <Badge badgeContent={cartCount} color="error" overlap="rectangular">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
           </CartContainer>
 
           {isAuthenticated ? (
-            <LogoutButton onClick={handleLogout} variant="contained" startIcon={<ExitToAppIcon />}>
-              Cerrar sesión
-            </LogoutButton>
+            <Tooltip title="Cerrar sesión">
+              <LogoutButton onClick={handleLogout} variant="contained" startIcon={<ExitToAppIcon />}>
+              </LogoutButton>
+            </Tooltip>
           ) : (
-            <LoginButton component={Link} to="/login" variant="contained" startIcon={<LoginIcon />}>
-              Iniciar sesión
-            </LoginButton>
+            <Tooltip title="Iniciar sesión">
+              <LoginButton component={Link} to="/login" variant="contained" startIcon={<LoginIcon />}>
+              </LoginButton>
+            </Tooltip>
           )}
         </Box>
       </Toolbar>
