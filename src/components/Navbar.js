@@ -18,6 +18,9 @@ const Capsule = styled(Box)({
   padding: '2px',
   backgroundColor: 'sky',
   margin: '2px',
+  '@media (max-width: 600px)': {
+    padding: '1px',
+  },
 });
 
 const LogoContainer = styled(Box)({
@@ -29,13 +32,20 @@ const LogoContainer = styled(Box)({
 const LogoImage = styled('img')({
   height: 50,
   marginLeft: '10px',
+  '@media (max-width: 600px)': {
+    height: 40,
+  },
 });
 
 const IconLabelContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  '@media (max-width: 600px)': {
+    flex: 1,
+  },
 });
+
 function Navbar() {
   const navigate = useNavigate();
   const [role, setRole] = useState(localStorage.getItem('userRole'));
@@ -97,8 +107,8 @@ function Navbar() {
   return (
     <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', padding: '10px' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        {/* Cápsula 1 (30%) */}
-        <Capsule sx={{ flex: '0 0 10%' }}>
+        {/* Cápsula 1 (10%) */}
+        <Capsule sx={{ flex: '0 %' }}>
           <LogoContainer>
             <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
               <ArrowBackIcon />
@@ -156,24 +166,23 @@ function Navbar() {
               <Typography variant="caption">Carrito</Typography>
             </IconLabelContainer>
 
-          {/* Mostrar "Iniciar sesión" o "Cerrar sesión" dependiendo de la autenticación */}
-<IconLabelContainer sx={{ flex: 1 }}>
-  <IconButton
-    color="inherit"
-    component={Link}
-    to={isAuthenticated ? '/' : '/login'}
-    onClick={isAuthenticated ? handleLogout : null}
-    sx={{
-      color: isAuthenticated ? 'red' : 'green', // Rojo si autenticado, verde si no
-    }}
-  >
-    {isAuthenticated ? <ExitToAppIcon /> : <LoginIcon />}
-  </IconButton>
-  <Typography variant="caption" sx={{ marginTop: '4px' }}>
-    {isAuthenticated ? 'Cerrar sesión' : 'Iniciar sesión'}
-  </Typography>
-</IconLabelContainer>
-
+            {/* Mostrar "Iniciar sesión" o "Cerrar sesión" dependiendo de la autenticación */}
+            <IconLabelContainer sx={{ flex: 1 }}>
+              <IconButton
+                color="inherit"
+                component={Link}
+                to={isAuthenticated ? '/' : '/login'}
+                onClick={isAuthenticated ? handleLogout : null}
+                sx={{
+                  color: isAuthenticated ? '#d32f2f' : '#388e3c', // Rojo si autenticado, verde si no
+                }}
+              >
+                {isAuthenticated ? <ExitToAppIcon /> : <LoginIcon />}
+              </IconButton>
+              <Typography variant="caption" sx={{ marginTop: '4px' }}>
+                {isAuthenticated ? 'Cerrar sesión' : 'Iniciar sesión'}
+              </Typography>
+            </IconLabelContainer>
           </Capsule>
         </Box>
       </Toolbar>
