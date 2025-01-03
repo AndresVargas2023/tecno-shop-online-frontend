@@ -13,7 +13,7 @@ import {
   Box,
   Typography
 } from '@mui/material';
-import './admin.css';  // Importa el archivo CSS
+import './admin.css';
 
 function EditUser() {
   const { userId } = useParams();
@@ -21,26 +21,54 @@ function EditUser() {
     name: '',
     surname: '',
     email: '',
-    address: '',
-    dpt: '',
-    city: '',
+    dpt: '', // Nombre del departamento
+    city: '', // Nombre de la ciudad
     barrio: '',
     phoneNumber: '',
     role: '',
     password: ''
   });
-  const [departments, setDepartments] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [departments, setDepartments] = useState([]); // Lista de departamentos
+  const [cities, setCities] = useState([]); // Lista de ciudades del departamento seleccionado
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
+  // Cargar departamentos
+  useEffect(() => {
+    fetch('https://api.delpi.dev/api/departamentos')
+      .then((response) => response.json())
+      .then((data) => setDepartments(data.data || []))
+      .catch((error) => console.error('Error fetching departments:', error));
+  }, []);
+
+  // Cargar ciudades cuando el departamento cambie
+  useEffect(() => {
+    if (user.dpt) {
+      const selectedDept = departments.find(
+        (dept) => dept.nombre.toLowerCase() === user.dpt.toLowerCase()
+      );
+      if (selectedDept) {
+        fetch(`https://api.delpi.dev/api/ciudades/${selectedDept.id}`)
+          .then((response) => response.json())
+          .then((data) => setCities(data))
+          .catch((error) => console.error('Error fetching cities:', error));
+      }
+    }
+  }, [user.dpt, departments]);
+
+  // Obtener datos del usuario
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(`${API_URL}/auth/users/${userId}`);
-        setUser(response.data);
+        const userData = response.data;
+        setUser({
+          ...userData,
+          dpt: userData.dpt || '',
+          city: userData.city || ''
+        });
         setLoading(false);
       } catch (err) {
         setError('Error al cargar los datos del usuario');
@@ -48,33 +76,8 @@ function EditUser() {
       }
     };
 
-    const fetchDepartments = async () => {
-      try {
-        const response = await axios.get('https://api.delpi.dev/api/departamentos');
-        setDepartments(response.data.data || []);
-      } catch (err) {
-        console.error('Error fetching departments:', err);
-      }
-    };
-
     fetchUser();
-    fetchDepartments();
   }, [userId, API_URL]);
-
-  useEffect(() => {
-    if (user.dpt) {
-      const fetchCities = async () => {
-        try {
-          const response = await axios.get(`https://api.delpi.dev/api/ciudades/${user.dpt}`);
-          setCities(response.data);
-        } catch (err) {
-          console.error('Error fetching cities:', err);
-        }
-      };
-
-      fetchCities();
-    }
-  }, [user.dpt]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,9 +103,7 @@ function EditUser() {
 
   return (
     <div className="edit-user-container" style={{ padding: '20px' }}>
-      <Typography variant="h4" gutterBottom align="center">
-        Editar Usuario
-      </Typography>
+      <Typography variant="h4" gutterBottom>Editar Usuario</Typography>
       {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
@@ -142,17 +143,22 @@ function EditUser() {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth required>
-              <InputLabel>Departamento</InputLabel>
+            <FormControl fullWidth style={{ marginBottom: '20px' }}>
+              <InputLabel>Selecciona tu departamento</InputLabel>
               <Select
-                name="dpt"
                 value={user.dpt}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setUser((prevState) => ({
+                    ...prevState,
+                    dpt: e.target.value,
+                    city: '' // Limpiar la ciudad al cambiar el departamento
+                  }));
+                }}
+                label="Selecciona tu departamento"
               >
-                <MenuItem value="" disabled>Selecciona un departamento</MenuItem>
-                {departments.map((department) => (
-                  <MenuItem key={department.id} value={department.id}>
-                    {department.nombre}
+                {departments.map((dept) => (
+                  <MenuItem key={dept.id} value={dept.nombre}>
+                    {dept.nombre}
                   </MenuItem>
                 ))}
               </Select>
@@ -160,17 +166,18 @@ function EditUser() {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth required>
-              <InputLabel>Ciudad</InputLabel>
+            <FormControl fullWidth style={{ marginBottom: '20px' }}>
+              <InputLabel>Selecciona tu ciudad</InputLabel>
               <Select
-                name="city"
                 value={user.city}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setUser((prevState) => ({ ...prevState, city: e.target.value }))
+                }
+                label="Selecciona tu ciudad"
               >
-                <MenuItem value="" disabled>Selecciona una ciudad</MenuItem>
-                {cities.map((city) => (
-                  <MenuItem key={city.id} value={city.id}>
-                    {city.nombre}
+                {cities.map((cityItem) => (
+                  <MenuItem key={cityItem.id} value={cityItem.nombre}>
+                    {cityItem.nombre}
                   </MenuItem>
                 ))}
               </Select>

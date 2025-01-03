@@ -1,68 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';  // Importar useNavigate
-import './admin.css';  // Importa el archivo CSS
+import { useNavigate } from 'react-router-dom';
+import { Button, Box, Typography, Container } from '@mui/material';
+import ViewListIcon from '@mui/icons-material/ViewList';  // Ícono para ver productos
+import AddBoxIcon from '@mui/icons-material/AddBox';    // Ícono para agregar productos
+import PeopleIcon from '@mui/icons-material/People';    // Ícono para administrar usuarios
 
 function Admin() {
-  const navigate = useNavigate();  // Inicializa el hook de navegación
-  const [role, setRole] = useState(null);  // Estado para almacenar el rol del usuario
+  const navigate = useNavigate();
+  const [role, setRole] = useState(null);
 
   // Obtener el rol del usuario al cargar el componente
   useEffect(() => {
-    const userRole = localStorage.getItem('userRole'); // Obtenemos el rol desde localStorage
-    console.log('Rol obtenido desde localStorage:', userRole);  // Log para depurar
+    const userRole = localStorage.getItem('userRole');
+    console.log('Rol obtenido desde localStorage:', userRole);
 
     // Si no hay rol o el rol es 'usuario', redirigir al login o página de inicio
     if (!userRole || userRole === 'user') {
       console.log('Acceso no autorizado, redirigiendo...');
       navigate('/');  // Redirige al inicio si el rol es 'usuario'
-      return;  // Evita la carga del resto del componente si no es admin o moderator
+      return;
     }
 
-    // Si el rol existe y es adecuado (admin o moderator), establecerlo en el estado
-    setRole(userRole);  // Establecemos el rol en el estado
+    setRole(userRole);
   }, [navigate]);
 
   return (
-    <div className="admin-container">
-      <h1 className="admin-header">Panel de Administración</h1>
-      <p className="admin-description">
+    <Container maxWidth="lg" sx={{ padding: '2rem' }}>
+      <Typography variant="h3" gutterBottom align="center">
+        Panel de Administración
+      </Typography>
+      <Typography variant="h6" paragraph align="center">
         Bienvenido al panel de administración de TecnoShop. Aquí podrás gestionar productos, usuarios y más.
-      </p>
+      </Typography>
 
-      <div className="admin-options">
-        <h2>Opciones de Administración</h2>
-        <div className="admin-buttons">
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
           {/* Botones para gestionar productos */}
-          <button
-            className="admin-button"
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ width: '100%', maxWidth: 300 }}
+            startIcon={<ViewListIcon />} // Ícono para ver productos
             onClick={() => navigate('/admin/products')}
           >
             Ver Productos
-          </button>
-          <button
-            className="admin-button"
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ width: '100%', maxWidth: 300 }}
+            startIcon={<AddBoxIcon />} // Ícono para agregar productos
             onClick={() => navigate('/admin/products/add')}
           >
             Agregar Productos
-          </button>
+          </Button>
 
           {/* Mostrar el botón de Administrar Usuarios solo si el rol es 'moderator' */}
           {role === 'moderator' && (
-            <button
-              className="admin-button"
-              onClick={() => navigate('/admin/users')}  // Redirige a la nueva ruta
+            <Button
+              variant="contained"
+              color="warning"
+              sx={{ width: '100%', maxWidth: 300 }}
+              startIcon={<PeopleIcon />} // Ícono para administrar usuarios
+              onClick={() => navigate('/admin/users')}
             >
               Administrar Usuarios
-            </button>
+            </Button>
           )}
 
           {/* Si el rol no es 'moderator', se muestra este mensaje */}
           {role && role !== 'moderator' && (
-            <p>No tienes permisos para administrar usuarios.</p>
+            <Typography variant="body1" color="textSecondary">
+              No tienes permisos para administrar usuarios.
+            </Typography>
           )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

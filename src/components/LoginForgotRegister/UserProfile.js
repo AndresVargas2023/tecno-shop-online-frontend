@@ -76,17 +76,33 @@ function UserProfile() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" color="textSecondary">
-              🏠 <strong>Dirección:</strong> {user.address || 'No disponible'}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" color="textSecondary">
               💼 <strong>Rol:</strong> {user.role || 'No asignado'}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" color="textSecondary">
               ✅ <strong>Verificado:</strong> {user.isVerified ? 'Sí' : 'No'}
+            </Typography>
+          </Grid>
+          {/* Nuevos campos */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" color="textSecondary">
+              🏢 <strong>Departamento:</strong> {user.dpt || 'No disponible'}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" color="textSecondary">
+              🌆 <strong>Ciudad:</strong> {user.city || 'No disponible'}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" color="textSecondary">
+              🏡 <strong>Barrio:</strong> {user.barrio || 'No disponible'}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" color="textSecondary">
+              📱 <strong>Teléfono:</strong> {user.phoneNumber || 'No disponible'}
             </Typography>
           </Grid>
         </Grid>
