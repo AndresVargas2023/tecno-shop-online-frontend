@@ -31,7 +31,7 @@ const LogoContainer = styled(Box)({
 
 const LogoImage = styled('img')({
   height: 50,
-  marginLeft: '10px',
+  marginLeft: '2px',
   '@media (max-width: 600px)': {
     height: 40,
   },
@@ -108,14 +108,15 @@ function Navbar() {
     <AppBar position="sticky" sx={{ background: 'linear-gradient(to right, #2196f3, #1976d2)', padding: '10px' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
         {/* Cápsula 1 (10%) */}
-        <Capsule sx={{ flex: '0 %' }}>
-          <LogoContainer>
-            <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
-              <ArrowBackIcon />
-            </IconButton>
-            <LogoImage src={logo} alt="Logo" />
-          </LogoContainer>
-        </Capsule>
+        <Capsule sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+  <LogoContainer>
+    <LogoImage src={logo} alt="Logo" />
+  </LogoContainer>
+  <IconButton edge="start" color="inherit" onClick={() => navigate(-1)}>
+    <ArrowBackIcon />
+  </IconButton>
+</Capsule>
+
 
         {/* Cápsula 2 (resto del espacio) */}
         <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
